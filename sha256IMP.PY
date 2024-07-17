@@ -31,12 +31,22 @@ def bits_to_hex(bits):
 print(bits_to_hex(input_bit('ci')))
 
 
-def fillZeros(bits, length=8, endian='LE'):
-    #aggiungere 0 se messaggio è troppo breve di 512 bits
-    while len(bits) < length :
-        if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
-        else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
-    return bits 
+def fillZeros(bits, lengthM, endian='LE'):
+    bits.append(1) # ISO padding 
 
-print(fillZeros([1,0,1], 8, 'LE'))
-print(fillZeros([1,0,1], 8, 'BE'))
+    while len(bits) % 512 !=448:
+        bits.append(0)
+    
+    bits+=[int(x) for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
+
+    return bits
+
+
+    # #aggiungere 0 se messaggio è troppo breve di 512 bits
+    # while len(bits) < length :
+    #     if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
+    #     else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
+    # return bits 
+
+message=[1,0,1]
+print(fillZeros(message, len(message), 'L'))
