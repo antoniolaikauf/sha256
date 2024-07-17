@@ -1,4 +1,3 @@
-
 def input_bit(text):
 
     unicodeText=[ord(x) for x in text] # text in unicode
@@ -15,11 +14,17 @@ def input_bit(text):
 # print(input_bit('ci'))
 
 def bits_to_hex(bits):
-    value_to_hex=[]
+    bitsF=[]
     start=4
     for x in range(0,len(bits) - 3, 4):
-        value_to_hex.append(bits[x:start]) #dividere bits in 4 per hex
+        bitsF.append(bits[x:start]) #dividere bits in 4 per hex
         start+=4
-    return value_to_hex
+    hex=[]
+    for x in bitsF:
+        for i,y in enumerate(x):
+            x[i] = str(y)
+        a = "".join(x)
+        hex.append(int(a,2))
+    return  hex
 
 print(bits_to_hex(input_bit('ci')))
