@@ -12,13 +12,13 @@ def input_bit(text):
 
     return bits
 
-print(input_bit('ci'))
+# print(input_bit('ci'))
 
 def bits_to_hex(bits):
     value_to_hex=[]
     start=4
     for x in range(0,len(bits) - 3, 4):
-        value_to_hex.append(bits[x:start])
+        value_to_hex.append(bits[x:start]) #dividere bits in 4 per hex
         start+=4
     return value_to_hex
 
