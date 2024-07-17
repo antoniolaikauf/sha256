@@ -6,12 +6,14 @@ Questo algoritmo è quindi molto utilizzato e importante al giorno d'oggi.
 
 ![](https://www.simplilearn.com/ice9/free_resources_article_thumb/hashing1.PNG)
 
-## cosa è una funzione hash 
+## Cosa è una funzione hash 
 una funzione hash è una funzione che si comporta come una funzione **one way** cioè che per ottenere l'output da questa funzione è facile ma ottenere l'input dall'output è difficile senza conoscere altre informazioni.
 La funzione hash modifica il testo utilizzato come input rendendolo senza senso agli occhi umani, questo è chiamato **digest** (di solito l'output è sotto forma esadecimale).
  altre tre caratteristiche dell'hash function sono:
   1. **Comportarsi come un algoritmo deterministico** cioè che a meno che non si cambia il testo dell'input il digest rimmarrà sempre lo stesso.
-  2. **Non Linearità** cioè che se si cambiasse anche solo un carattere dell'input, **il digest deve cambiare completamente**. 
+  2. **Non Linearità** cioè che se si cambiasse anche solo un carattere dell'input, **il digest deve cambiare completamente**.\
+  ![](img/Screenshot%202024-07-17%20151940.png)
+
   3. **Il digest della funzione sha deve sempre avere una lunghezza fissa** questova in  base a quale SHA si è usato.
   4. **resistenza alle collisioni** è una caratteristica molto importante questa perchè esiste un possibile attacco che si basa su un paradosso della matematica chiamato **paradosso del compleanno** [qui](https://it.wikipedia.org/wiki/Paradosso_del_compleanno).
   Questa è la formula del paradosso del compleanno
@@ -25,6 +27,9 @@ se hash(A)=hash(B) e A≠B allora A e B sono una collisione. Nella hash function
 
   all'interno della funzione i blocchi vengono processati sempre il doppio della lunghezza del digest 
 
+
+Tutti i vari tipi di SHA sono stati pubblicati dal NIST \
+![](img/Screenshot%202024-07-17%20145534.png)
 ### links 
 
 - https://en.wikipedia.org/wiki/SHA-2#Pseudocode
