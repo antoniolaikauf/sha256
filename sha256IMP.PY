@@ -29,3 +29,14 @@ def bits_to_hex(bits):
     return  pair_F_bit
 
 print(bits_to_hex(input_bit('ci')))
+
+
+def fillZeros(bits, length=8, endian='LE'):
+    #aggiungere 0 se messaggio è troppo breve di 512 bits
+    while len(bits) < length :
+        if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
+        else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
+    return bits 
+
+print(fillZeros([1,0,1], 8, 'LE'))
+print(fillZeros([1,0,1], 8, 'BE'))
