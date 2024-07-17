@@ -4,7 +4,6 @@ sha256=hashes.Hash(hashes.SHA256())
 sha256.update(b'tutti')
 print(sha256.finalize().hex(), 'parola come input "tutti"')
 
-
 import hashlib
 
 SHA256= hashlib.sha256()
