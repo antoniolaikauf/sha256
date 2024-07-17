@@ -12,4 +12,14 @@ def input_bit(text):
 
     return bits
 
-print(input_bit('ciao'))
+print(input_bit('ci'))
+
+def bits_to_hex(bits):
+    value_to_hex=[]
+    start=4
+    for x in range(0,len(bits) - 3, 4):
+        value_to_hex.append(bits[x:start])
+        start+=4
+    return value_to_hex
+
+print(bits_to_hex(input_bit('ci')))
