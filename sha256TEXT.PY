@@ -28,7 +28,18 @@ def bits_to_hex(bits):
         pair_F_bit += hex(int(a,2)) [2:] # convertire int in hex e prendere solo 6 invece di 0x6
     return  pair_F_bit
 
-print(bits_to_hex(input_bit('ci')))
+# print(bits_to_hex(input_bit('ci')))
+
+
+'''
+Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 
+message, followed by k zero bits, where k is the smallest, non-negative solution to the equation 
+l + 1 + k=  448mod512
+. Then append the 64-bit block that is equal to the number l expressed 
+using a binary representation. For example, the (8-bit ASCII) message “abc” has length 
+8 x 3 =  24, so the message is padded with a one bit, then 
+448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
+'''
 
 
 def fillZeros(bits, lengthM, endian='LE'):
@@ -41,15 +52,14 @@ def fillZeros(bits, lengthM, endian='LE'):
 
     return bits
 
-
     # #aggiungere 0 se messaggio è troppo breve di 512 bits
     # while len(bits) < length :
     #     if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
     #     else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
     # return bits 
 
-message=[1,0,1]
-# print(fillZeros(message, len(message), 'L'))
+message=input_bit('ciao')
+print(fillZeros(message, len(message), 'L'))
 
 def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
     chunks_bits=[]
@@ -59,4 +69,4 @@ def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
 
     return chunks_bits 
 
-print(chunks(fillZeros(message, len(message), 'L'),32))
+# print(chunks(fillZeros(message, len(message), 'L'),32))
