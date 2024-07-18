@@ -1,62 +1,15 @@
-def input_bit(text):
+'''
+For SHA-384, the initial hash value, H(0), shall consist of the following eight 64-bit words, in hex: 
+H0 = cbbb9d5dc1059ed8
+H1 = 629a292a367cd507
+H2 = 9159015a3070dd17
+H3 = 152fecd8f70e5939
+H4 = 67332667ffc00b31
+H5 = 8eb44a8768581511
+H6 = db0c2e0d64f98fa7
+H7 = 47b5481dbefa4fa4
 
-    unicodeText=[ord(x) for x in text] # text in unicode
-
-    bytes=[bin(x)[2:].zfill(8) for x in unicodeText] # unicode in bytes
-
-    bits=[]
-    for byte in bytes:
-        for bit in byte:
-            bits.append(int(bit)) # tutte le stringhe bytes unite in una 
-
-    return bits
-
-# print(input_bit('ci'))
-
-def bits_to_hex(bits):
-    bitsF=[]
-    start=4
-    for x in range(0,len(bits) - 3, 4):
-        bitsF.append(bits[x:start]) #dividere bits in 4 per hex
-        start+=4
-
-    pair_F_bit=''
-    for x in bitsF:
-        for i,y in enumerate(x):
-            x[i] = str(y) #trasformare bit 
-        a = "".join(x)
-        pair_F_bit += hex(int(a,2)) [2:] # convertire int in hex e prendere solo 6 invece di 0x6
-    return  pair_F_bit
-
-print(bits_to_hex(input_bit('ci')))
+'''
 
 
-def fillZeros(bits, lengthM, endian='LE'):
-    bits.append(1) # ISO padding 
-
-    while len(bits) % 512 !=448:
-        bits.append(0)
-    
-    bits+=[int(x) for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
-
-    return bits
-
-
-    # #aggiungere 0 se messaggio è troppo breve di 512 bits
-    # while len(bits) < length :
-    #     if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
-    #     else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
-    # return bits 
-
-message=[1,0,1]
-# print(fillZeros(message, len(message), 'L'))
-
-def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
-    chunks_bits=[]
-    Lbits=len(bits)
-    for x in range(0,Lbits,chunk):
-        chunks_bits.append(bits[x:x + chunk])
-
-    return chunks_bits 
-
-print(chunks(fillZeros(message, len(message), 'L'),32))
+h = ['cbbb9d5dc1059ed8', '629a292a367cd507', '9159015a3070dd17','152fecd8f70e5939', '67332667ffc00b31', '8eb44a8768581511', 'db0c2e0d64f98fa7','47b5481dbefa4fa4']

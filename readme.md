@@ -30,6 +30,8 @@ se hash(A)=hash(B) e A≠B allora A e B sono una collisione. Nella hash function
 
 Tutti i vari tipi di SHA sono stati pubblicati dal NIST \
 ![](img/Screenshot%202024-07-17%20145534.png)
+
+
 ### links 
 
 - https://en.wikipedia.org/wiki/SHA-2#Pseudocode
@@ -39,3 +41,5 @@ Tutti i vari tipi di SHA sono stati pubblicati dal NIST \
 - https://medium.com/@domspaulo/python-implementation-of-sha-256-from-scratch-924f660c5d57
 
 - https://brilliant.org/wiki/secure-hashing-algorithms/
+
+- https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
