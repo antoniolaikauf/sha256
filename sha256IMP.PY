@@ -49,4 +49,14 @@ def fillZeros(bits, lengthM, endian='LE'):
     # return bits 
 
 message=[1,0,1]
-print(fillZeros(message, len(message), 'L'))
+# print(fillZeros(message, len(message), 'L'))
+
+def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
+    chunks_bits=[]
+    Lbits=len(bits)
+    for x in range(0,Lbits,chunk):
+        chunks_bits.append(bits[x:x + chunk])
+
+    return chunks_bits 
+
+print(chunks(fillZeros(message, len(message), 'L'),32))
