@@ -21,6 +21,25 @@ a2bfe8a1 a81a664b c24b8b70 c76c51a3 d192e819 d6990624 f40e3585 106aa070
 748f82ee 78a5636f 84c87814 8cc70208 90befffa a4506ceb bef9a3f7 c67178f2
 
 
+
+H0
+= 22312194FC2BF72C 
+)0( H1
+= 9F555FA3C84C64C2 
+)0( H2
+= 2393B86B6F53B151 
+)0( H3
+= 963877195940EABD 
+)0( H4
+= 96283EE2A88EFFE3 
+)0( H5
+= BE5E1E2553863992 
+)0( H6
+= 2B0199FC2C85B8AA 
+)0( H7
+= 0EB72DDC81C52CA2
+
+
 k sarebbre delle costanti che si useranno per mischiare con il digest e sarebbero  primi 32 bits della parte decimale della radice cubica dei primi 64 numeri primi 
 '''
 
@@ -50,24 +69,29 @@ class initializer():
             for x in bit:
                words.append(int(x))
             bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
-
-
+        return bits
 
 
 valueK=initializer(k)
 valueH=initializer(h)
-valueH.hex_to_bits()
-valueK.hex_to_bits()
+h_fill=valueH.hex_to_bits()
+k_fill=valueK.hex_to_bits()
 
+
+def Ch(x, y, z):
+    # return (x ^ y) ^ ( x ^ z)
+    # print(len(x), len(y))
+    pass
+    # return ( int(x) ^ int(y) )
 
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-    return chunks_message
+    return chunks_message #blocco messaggi diviso in 32 bits (8 blocchi)
 
 
-print(prepare_message('ciao'))
+# print(prepare_message('ciao'))
 
 def cicle(valueH):
     a=valueH[0]
@@ -80,6 +104,7 @@ def cicle(valueH):
     h=valueH[7]
 
     for x in range(64):
-        pass
+        Ch(e , f , g)
+        
 
-# print(cicle(h))
+print(cicle(k_fill))
