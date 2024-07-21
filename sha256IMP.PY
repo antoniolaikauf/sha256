@@ -43,12 +43,6 @@ H0
 k sarebbre delle costanti che si useranno per mischiare con il digest e sarebbero  primi 32 bits della parte decimale della radice cubica dei primi 64 numeri primi 
 '''
 
-# words_bits=print(sha256testo.input_bit('ciao'))
-
-# Ch(x, y,z) = (x ^ y) xor (x  ^ z)
-
-# Maj(x, y,z) = (x  y)(x  z)(y  z)
-
 import sha256testo
 
 h = ['0x6a09e667', '0xbb67ae85', '0x3c6ef372', '0xa54ff53a', '0x510e527f', '0x9b05688c', '0x1f83d9ab', '0x5be0cd19']
@@ -77,6 +71,20 @@ valueH=initializer(h)
 h_fill=valueH.hex_to_bits()
 k_fill=valueK.hex_to_bits()
 
+
+def Maj(x,y,z):
+    for i in range(len(x)):
+        x[i]=str(x[i])
+        y[i]=str(y[i])
+        z[i]=str(z[i])
+    
+    x=''.join(x)
+    y=''.join(y)
+    z=''.join(z)
+
+    first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
+    # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
+    return  first_Block (int(y,2) ^ int(z,2)) 
 
 def Ch(x, y, z):
 
@@ -111,9 +119,10 @@ def cicle(valueH):
     h=valueH[7]
 
     for x in range(64):
-        Ch(e,f,g)
-        Maj(a,b,c)
+        print(Ch(e,f,g))
+        print(Maj(a,b,c))
         break
+        
         
 
 print(cicle(k_fill))
