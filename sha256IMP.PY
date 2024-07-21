@@ -63,7 +63,8 @@ valueK.hex_to_bits()
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
-    return padd_message
+    chunks_message= sha256testo.chunks(padd_message,32)
+    return chunks_message
 
 
 print(prepare_message('ciao'))
