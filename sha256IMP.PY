@@ -84,7 +84,7 @@ def Maj(x,y,z):
 
     first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
-    return  first_Block (int(y,2) ^ int(z,2)) 
+    return  first_Block ^ (int(y,2) ^ int(z,2)) 
 
 def Ch(x, y, z):
 
@@ -119,10 +119,10 @@ def cicle(valueH):
     h=valueH[7]
 
     for x in range(64):
-        print(Ch(e,f,g))
-        print(Maj(a,b,c))
-        break
-        
-        
+        bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
+        bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
+        print(bits_H_Ch)
+        print(bits_H_Maj)
+        break    
 
 print(cicle(k_fill))
