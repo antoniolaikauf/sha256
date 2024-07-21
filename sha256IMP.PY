@@ -79,10 +79,17 @@ k_fill=valueK.hex_to_bits()
 
 
 def Ch(x, y, z):
-    # return (x ^ y) ^ ( x ^ z)
-    # print(len(x), len(y))
-    pass
-    # return ( int(x) ^ int(y) )
+
+    for i in range(len(x)):
+        x[i]= str(x[i])
+        y[i] = str(y[i])
+        z[i]= str(z[i])
+
+    x=''.join(x)
+    y=''.join(y)
+    z=''.join(z) 
+    # (x ^ y) xor (x  ^ z)
+    return (int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2)) 
 
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
@@ -104,7 +111,9 @@ def cicle(valueH):
     h=valueH[7]
 
     for x in range(64):
-        Ch(e , f , g)
+        Ch(e,f,g)
+        Maj(a,b,c)
+        break
         
 
 print(cicle(k_fill))
