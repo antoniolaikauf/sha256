@@ -32,17 +32,6 @@ def bits_to_hex(bits):
 
 # print(bits_to_hex(input_bit('ci')))
 
-
-'''
-Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 
-message, followed by k zero bits, where k is the smallest, non-negative solution to the equation 
-l + 1 + k=  448mod512
-. Then append the 64-bit block that is equal to the number l expressed 
-using a binary representation. For example, the (8-bit ASCII) message “abc” has length 
-8 x 3 =  24, so the message is padded with a one bit, then 
-448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
-'''
-
 def fillzeros(bits,length=8,eldian='LE'):
     l=len(bits)
     if eldian=='LE':
@@ -55,6 +44,16 @@ def fillzeros(bits,length=8,eldian='LE'):
             l=len(bits)
     return bits
 
+'''
+Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 
+message, followed by k zero bits, where k is the smallest, non-negative solution to the equation 
+l + 1 + k=  448mod512
+. Then append the 64-bit block that is equal to the number l expressed 
+using a binary representation. For example, the (8-bit ASCII) message “abc” has length 
+8 x 3 =  24, so the message is padded with a one bit, then 
+448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
+'''
+
 def padding(bits, lengthM): # endian='LE' controllare se servirebbe 
     bits.append(1) # ISO padding 
 
@@ -64,12 +63,6 @@ def padding(bits, lengthM): # endian='LE' controllare se servirebbe
     bits+=[int(x) for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
 
     return bits
-
-    # #aggiungere 0 se messaggio è troppo breve di 512 bits
-    # while len(bits) < length :
-    #     if endian == 'LE': bits.append(0) #aggiunto 0 a destra del messaggio  
-    #     else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
-    # return bits 
 
 # message=input_bit('ciao')
 # print(padding(message, len(message), 'L'))
@@ -82,4 +75,4 @@ def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
 
     return chunks_bits 
 
-# print(chunks(fillZeros(message, len(message), 'L'),32))
+# print(chunks(padding(message, len(message)),32))
