@@ -1,3 +1,5 @@
+
+
 def input_bit(text):
 
     unicodeText=[ord(x) for x in text] # text in unicode
@@ -41,8 +43,19 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
 '''
 
+def fillzeros(bits,length=8,eldian='LE'):
+    l=len(bits)
+    if eldian=='LE':
+        while l < length:
+            bits.append(0)
+            l=len(bits)
+    else: 
+        while l < length: 
+            bits.insert(0,0)
+            l=len(bits)
+    return bits
 
-def fillZeros(bits, lengthM, endian='LE'):
+def padding(bits, lengthM): # endian='LE' controllare se servirebbe 
     bits.append(1) # ISO padding 
 
     while len(bits) % 512 !=448:
@@ -58,8 +71,8 @@ def fillZeros(bits, lengthM, endian='LE'):
     #     else:bits.insert(0,0) #aggiunto 0 a sinistra del messaggio 
     # return bits 
 
-message=input_bit('ciao')
-print(fillZeros(message, len(message), 'L'))
+# message=input_bit('ciao')
+# print(padding(message, len(message), 'L'))
 
 def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
     chunks_bits=[]
