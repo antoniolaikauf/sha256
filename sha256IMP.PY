@@ -50,13 +50,23 @@ class initializer():
             for x in bit:
                words.append(int(x))
             bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
-        print(len(bits[0]))
-    
+
+
+
+
 valueK=initializer(k)
 valueH=initializer(h)
 valueH.hex_to_bits()
 valueK.hex_to_bits()
 
+
+def prepare_message(messagge):
+    bits_message=sha256testo.input_bit(messagge)
+    padd_message=sha256testo.padding(bits_message,len(bits_message))
+    return padd_message
+
+
+print(prepare_message('ciao'))
 
 def cicle(valueH):
     a=valueH[0]
