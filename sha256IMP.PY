@@ -36,7 +36,7 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 def rotate(x,n):
     w=32 # lunghezza bits parola
     x=int(str(x),2)
-    return (x >> n) | (x << (w - n)) & ((1 << w) - 1)  #ruota i bits più significativi sostituendoli con 0 
+    return (x >> n) | (x << (w - n)) & ((1 << w) - 1)  #ruota i bits più significativi 
 
 def sigma1(x):
     x=''.join(x)
@@ -94,12 +94,13 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,33)
     w=[]
     w += chunks_message
-    # for t in range(17,64):
-        #   w_t=sigma1(w[t - 2])  + w[t - 7]   + sigma0(w[t - 15]) + w[t - 16] 
-    # w.append(str(w_t).split(' '))
-        # print(w[1])
-    print(sigma0(w[0]))
-    return  w
+    for t in range(16,64): #aggiunta degli altri 32 bits di word fino ad arrivare a un tot di 64 
+          w_t7=int(''.join( w[t - 7]),2)
+          w_t16=int(''.join(w[t - 16]))
+          w_t=sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16 
+          w_t=[x for x in bin(w_t)[2:]]
+          w.append(w_t)
+    return  len(w[0])
 
 
 print(prepare_message('ciao'))
@@ -114,10 +115,9 @@ def cicle(valueH, valueK):
     g=valueH[6]
     h=valueH[7]
 
-    # for x in range(64):
-    bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
-    bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
-    return Ch(e,f,g)
+    for x in range(64):
+        bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
+        bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
         # t_one= h + ( e + bits_H_Ch + valueK[x] )
         # t_two= a + Maj(a,b,c)
         # # print(bits_H_Ch)
@@ -129,8 +129,7 @@ def cicle(valueH, valueK):
         # d = c
         # c = b
         # b = a
-        # a = t_one + t_two
-        # break 
+        # a = t_one + t_two 
           
 
 # print(cicle(k_fill,k_fill))
