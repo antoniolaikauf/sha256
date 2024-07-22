@@ -1,3 +1,24 @@
+# def rotate(x, n):
+#     w = 32  # lunghezza bits parola
+#     return ((x >> n) | (x << (w - n))) & ((1 << w) - 1)
+
+# def sigma1(x):
+#     # Assumiamo che x sia una lista di 32 bit (0 o 1)
+#     x_str = ''.join(map(str, x))
+#     x_int = int(x_str, 2)
+#     value = rotate(x_int, 17) ^ rotate(x_int, 19) ^ (x_int >> 10)
+#     print(bin(value))
+#     return value
+
+# # Esempio di uso
+# x = [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1]
+# print(f"Input: {x}")
+# sigma1_value = sigma1(x)
+# print(f"Output di sigma1: {bin(sigma1_value)}")
+
+
+# exit(0)
+
 '''
 For SHA-256, the initial hash value, H(0), shall consist of the following eight 32-bit words, in 
 hex:
@@ -53,15 +74,13 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 def rotate(x,n):
     w=32 # lunghezza bits parola
     x=int(str(x),2)
-    # print(bin((x >> n)))
-    return (x >> n) | (x << w - n)  #ruota i bits più significativi sostituendoli con 0 
+    return (x >> n) | (x << (w - n)) & ((1 << w) - 1)  #ruota i bits più significativi sostituendoli con 0 
 
 def sigma1(x):
     for i in range(len(x)):
         x[i]=str(x[i])
     x=''.join(x)
     value=rotate(int(x),17) ^ rotate(int(x),19) ^ rotate(int(x),10)
-    print(bin(value))
     return value
 
 def sigma0(x):
@@ -128,12 +147,12 @@ def prepare_message(messagge):
     w=[]
     w += chunks_message
     # for t in range(17,64):
-    # #     # + w[t - 7] + w[t - 16]
-    #     w_t=sigma1(w[t - 2])  + sigma0(w[t - 15]) 
-    #     w.append(w_t)
-    #     print(w[1])
-    sigma1(w[0])
-    # return  w
+    #     # + w[t - 7] + w[t - 16]
+    w_t=sigma1(w[t - 2]) + w[t - 7]  + sigma0(w[t - 15]) + w[t - 16]
+    # w.append(str(w_t).split(' '))
+        # print(w[1])
+    # sigma1(w[0])
+    return  w
 
 
 print(prepare_message('ciao'))
