@@ -39,16 +39,11 @@ def rotate(x,n):
     return (x >> n) | (x << (w - n)) & ((1 << w) - 1)  #ruota i bits più significativi sostituendoli con 0 
 
 def sigma1(x):
-    for i in range(len(x)):
-        x[i]=str(x[i])
     x=''.join(x)
     value=rotate(int(x),17) ^ rotate(int(x),19) ^ rotate(int(x),10)
     return value
 
 def sigma0(x):
-    # x=''.join(x)
-    for i in range(len(x)):
-        x[i]=str(x[i])
     x=''.join(x)
     value= rotate(int(x),7) ^ rotate(int(x),18) ^ rotate(int(x),3)
     return value
@@ -103,11 +98,11 @@ def prepare_message(messagge):
         #   w_t=sigma1(w[t - 2])  + w[t - 7]   + sigma0(w[t - 15]) + w[t - 16] 
     # w.append(str(w_t).split(' '))
         # print(w[1])
-    # sigma1(w[0])
+    print(sigma0(w[0]))
     return  w
 
 
-# print(prepare_message('ciao'))
+print(prepare_message('ciao'))
 
 def cicle(valueH, valueK):
     a=valueH[0]
@@ -138,4 +133,4 @@ def cicle(valueH, valueK):
         # break 
           
 
-print(cicle(k_fill,k_fill))
+# print(cicle(k_fill,k_fill))
