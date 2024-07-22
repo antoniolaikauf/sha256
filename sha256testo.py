@@ -1,5 +1,3 @@
-
-
 def input_bit(text):
 
     unicodeText=[ord(x) for x in text] # text in unicode
