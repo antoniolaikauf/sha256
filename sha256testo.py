@@ -8,7 +8,6 @@ def input_bit(text):
     for byte in bytes:
         for bit in byte:
             bits.append(int(bit)) # tutte le stringhe bytes unite in una 
-
     return bits
 
 # print(input_bit('ci'))
@@ -40,7 +39,11 @@ def fillzeros(bits,length=8,eldian='LE'):
         while l < length: 
             bits.insert(0,0)
             l=len(bits)
+        
     return bits
+
+
+# print(fillzeros(input_bit('ci'),32))
 
 '''
 Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 

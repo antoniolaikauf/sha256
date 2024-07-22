@@ -52,24 +52,32 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 
 def rotate(x,n):
     w=32 # lunghezza bits parola
-    return (x >> n) | (x << w - x)
+    x=int(str(x),2)
+    # print(int(str(x),2),n)
+    # | (x << w - x)
+    print(bin((x >> n)))
+    return (x >> n) | (x << w - x)  #ruota i bits più significativi sostituendoli con 0 
 
 def sigma1(x):
+    for i in range(len(x)):
+        x[i]=str(x[i])
     x=''.join(x)
-    return ''.join(x)
-    return rotate(x,17) ^ rotate(x,19) ^ rotate(x,10)
+    # ^ rotate(int(x),19) ^ rotate(int(x),10)
+    return rotate(int(x),17) 
 
 def sigma0(x):
+    # x=''.join(x)
+    for i in range(len(x)):
+        x[i]=str(x[i])
     x=''.join(x)
-    return ''.join(x)
-    return rotate(x,7) ^ rotate(x,18) ^ rotate(x,3)
+    return rotate(int(x),7) ^ rotate(int(x),18) ^ rotate(int(x),3)
 
 class initializer():
     def __init__(self,value):
         self.value= value
 
     def hex_to_bits(self):
-        binaries=[bin(int(x[2:],16))[2:] for x in (self.value)] #hex to bits
+        binaries=[str(bin(int(x[2:],16))[2:]) for x in (self.value)] #hex to bits
         # print(binaries)
         bits=[]
         for bit in binaries:
@@ -116,12 +124,12 @@ def Ch(x, y, z):
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
-    chunks_message= sha256testo.chunks(padd_message,32)
+    chunks_message= sha256testo.chunks(padd_message,33)
     w=[]
     w += chunks_message
     # for t in range(16,64):
         # w[t]=sigma1(w[t - 2]) + w[t - 7] + sigma0(w[t - 15]) + w[t - 16]
-    return sigma0(w[16-2]) #blocco messaggi diviso in 32 bits (8 blocchi)
+    return sigma1(w[16-16])
 
 
 print(prepare_message('ciao'))
