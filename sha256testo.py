@@ -7,7 +7,7 @@ def input_bit(text):
     bits=[]
     for byte in bytes:
         for bit in byte:
-            bits.append(int(bit)) # tutte le stringhe bytes unite in una 
+            bits.append(bit) # tutte le stringhe bytes unite in una 
     return bits
 
 # print(input_bit('ci'))
@@ -33,17 +33,17 @@ def fillzeros(bits,length=8,eldian='LE'):
     l=len(bits)
     if eldian=='LE':
         while l < length:
-            bits.append(0)
+            bits.append(str(0))
             l=len(bits)
     else: 
         while l < length: 
-            bits.insert(0,0)
+            bits.insert(0,str(0))
             l=len(bits)
         
     return bits
 
 
-# print(fillzeros(input_bit('ci'),32))
+print(fillzeros(input_bit('ci'),32))
 
 '''
 Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 
@@ -55,7 +55,7 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
 '''
 
-def padding(bits, lengthM): # endian='LE' controllare se servirebbe 
+def padding(bits, lengthM):
     bits.append(1) # ISO padding 
 
     while len(bits) % 512 !=448:
