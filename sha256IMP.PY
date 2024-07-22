@@ -1,26 +1,6 @@
-# def rotate(x, n):
-#     w = 32  # lunghezza bits parola
-#     return ((x >> n) | (x << (w - n))) & ((1 << w) - 1)
-
-# def sigma1(x):
-#     # Assumiamo che x sia una lista di 32 bit (0 o 1)
-#     x_str = ''.join(map(str, x))
-#     x_int = int(x_str, 2)
-#     value = rotate(x_int, 17) ^ rotate(x_int, 19) ^ (x_int >> 10)
-#     print(bin(value))
-#     return value
-
-# # Esempio di uso
-# x = [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1]
-# print(f"Input: {x}")
-# sigma1_value = sigma1(x)
-# print(f"Output di sigma1: {bin(sigma1_value)}")
-
-
-# exit(0)
-
 '''
 For SHA-256, the initial hash value, H(0), shall consist of the following eight 32-bit words, in 
+Questi valori sono i primi 32 bits della parte decimale della radice quadrata dei primi 8 numeri primi 
 hex:
  H0 = 6a09e667 (a)
  H1 = bb67ae85 (b)
@@ -30,8 +10,10 @@ hex:
  H5 = 9b05688c (f)
  H6 = 1f83d9ab (g)
  H7 = 5be0cd19 (h)
-Questi valori sono i primi 32 bits della parte decimale della radice quadrata e primi 8 numeri primi 
 
+k sarebbre delle costanti che si useranno per mischiare con il digest e sarebbero  primi 32 bits della parte 
+decimale della radice cubica dei primi 64 numeri primi
+ 
 428a2f98 71374491 b5c0fbcf e9b5dba5 3956c25b 59f111f1 923f82a4 ab1c5ed5
 d807aa98 12835b01 243185be 550c7dc3 72be5d74 80deb1fe 9bdc06a7 c19bf174
 e49b69c1 efbe4786 0fc19dc6 240ca1cc 2de92c6f 4a7484aa 5cb0a9dc 76f988da
@@ -42,26 +24,6 @@ a2bfe8a1 a81a664b c24b8b70 c76c51a3 d192e819 d6990624 f40e3585 106aa070
 748f82ee 78a5636f 84c87814 8cc70208 90befffa a4506ceb bef9a3f7 c67178f2
 
 
-
-H0
-= 22312194FC2BF72C 
-)0( H1
-= 9F555FA3C84C64C2 
-)0( H2
-= 2393B86B6F53B151 
-)0( H3
-= 963877195940EABD 
-)0( H4
-= 96283EE2A88EFFE3 
-)0( H5
-= BE5E1E2553863992 
-)0( H6
-= 2B0199FC2C85B8AA 
-)0( H7
-= 0EB72DDC81C52CA2
-
-
-k sarebbre delle costanti che si useranno per mischiare con il digest e sarebbero  primi 32 bits della parte decimale della radice cubica dei primi 64 numeri primi 
 '''
 
 import sha256testo
@@ -102,7 +64,7 @@ class initializer():
         for bit in binaries:
             words=[]
             for x in bit:
-               words.append(int(x))
+               words.append(x)
             bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
         return bits
 
@@ -146,16 +108,15 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,33)
     w=[]
     w += chunks_message
-    for t in range(17,64):
-    #     # + w[t - 7] + w[t - 16]
-          w_t=sigma1(w[t - 2])   + sigma0(w[t - 15]) 
+    # for t in range(17,64):
+        #   w_t=sigma1(w[t - 2])  + w[t - 7]   + sigma0(w[t - 15]) + w[t - 16] 
     # w.append(str(w_t).split(' '))
         # print(w[1])
     # sigma1(w[0])
     return  w
 
 
-print(prepare_message('ciao'))
+# print(prepare_message('ciao'))
 
 def cicle(valueH, valueK):
     a=valueH[0]

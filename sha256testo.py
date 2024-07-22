@@ -43,7 +43,7 @@ def fillzeros(bits,length=8,eldian='LE'):
     return bits
 
 
-print(fillzeros(input_bit('ci'),32))
+# print(fillzeros(input_bit('ci'),32))
 
 '''
 Suppose that the length of the message, M, is l bits. Append the bit “1” to the end of the 
@@ -56,12 +56,12 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 '''
 
 def padding(bits, lengthM):
-    bits.append(1) # ISO padding 
+    bits.append(str(1)) # ISO padding 
 
     while len(bits) % 512 !=448:
-        bits.append(0)
+        bits.append(str(0))
     
-    bits+=[int(x) for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
+    bits+=[x for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
 
     return bits
 
