@@ -53,24 +53,24 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 def rotate(x,n):
     w=32 # lunghezza bits parola
     x=int(str(x),2)
-    # print(int(str(x),2),n)
-    # | (x << w - x)
-    print(bin((x >> n)))
-    return (x >> n) | (x << w - x)  #ruota i bits più significativi sostituendoli con 0 
+    # print(bin((x >> n)))
+    return (x >> n) | (x << w - n)  #ruota i bits più significativi sostituendoli con 0 
 
 def sigma1(x):
     for i in range(len(x)):
         x[i]=str(x[i])
     x=''.join(x)
-    # ^ rotate(int(x),19) ^ rotate(int(x),10)
-    return rotate(int(x),17) 
+    value=rotate(int(x),17) ^ rotate(int(x),19) ^ rotate(int(x),10)
+    print(bin(value))
+    return value
 
 def sigma0(x):
     # x=''.join(x)
     for i in range(len(x)):
         x[i]=str(x[i])
     x=''.join(x)
-    return rotate(int(x),7) ^ rotate(int(x),18) ^ rotate(int(x),3)
+    value= rotate(int(x),7) ^ rotate(int(x),18) ^ rotate(int(x),3)
+    return value
 
 class initializer():
     def __init__(self,value):
@@ -127,9 +127,13 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,33)
     w=[]
     w += chunks_message
-    # for t in range(16,64):
-        # w[t]=sigma1(w[t - 2]) + w[t - 7] + sigma0(w[t - 15]) + w[t - 16]
-    return sigma1(w[16-16])
+    # for t in range(17,64):
+    # #     # + w[t - 7] + w[t - 16]
+    #     w_t=sigma1(w[t - 2])  + sigma0(w[t - 15]) 
+    #     w.append(w_t)
+    #     print(w[1])
+    sigma1(w[0])
+    # return  w
 
 
 print(prepare_message('ciao'))
