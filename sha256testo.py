@@ -65,7 +65,7 @@ def padding(bits, lengthM):
 
     return bits
 
-# message=input_bit('ciao')
+message=input_bit('ciao')
 # print(padding(message, len(message)))
 
 def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
@@ -76,4 +76,4 @@ def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
 
     return chunks_bits 
 
-# print(chunks(padding(message, len(message)),32))
+# print(len(chunks(padding(message, len(message)),32)[0]))

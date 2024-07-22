@@ -91,16 +91,19 @@ def Ch(x, y, z):
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
-    chunks_message= sha256testo.chunks(padd_message,33)
+    chunks_message= sha256testo.chunks(padd_message,32)
     w=[]
     w += chunks_message
     for t in range(16,64): #aggiunta degli altri 32 bits di word fino ad arrivare a un tot di 64 
           w_t7=int(''.join( w[t - 7]),2)
-          w_t16=int(''.join(w[t - 16]))
+          w_t16=int(''.join(w[t - 16]),2)
           w_t=sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16 
-          w_t=[x for x in bin(w_t)[2:]]
-          w.append(w_t)
-    return  len(w[0])
+          w_t=[x[2:] for x in bin(w_t)[2:]]
+          w.append(['0'] + w_t)
+          break
+    print(w[0])
+    return  len(w[16])
+# finire w deve aere 64 parola in bits cosi che si possan usare nel cicle ora ne ha 16 piu una aggiunta nel ciclo per il test
 
 
 print(prepare_message('ciao'))
