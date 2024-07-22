@@ -146,9 +146,9 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,33)
     w=[]
     w += chunks_message
-    # for t in range(17,64):
+    for t in range(17,64):
     #     # + w[t - 7] + w[t - 16]
-    w_t=sigma1(w[t - 2]) + w[t - 7]  + sigma0(w[t - 15]) + w[t - 16]
+          w_t=sigma1(w[t - 2])   + sigma0(w[t - 15]) 
     # w.append(str(w_t).split(' '))
         # print(w[1])
     # sigma1(w[0])
