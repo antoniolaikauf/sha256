@@ -13,7 +13,7 @@ hex:
 
 k sarebbre delle costanti che si useranno per mischiare con il digest e sarebbero  primi 32 bits della parte 
 decimale della radice cubica dei primi 64 numeri primi
- 
+
 428a2f98 71374491 b5c0fbcf e9b5dba5 3956c25b 59f111f1 923f82a4 ab1c5ed5
 d807aa98 12835b01 243185be 550c7dc3 72be5d74 80deb1fe 9bdc06a7 c19bf174
 e49b69c1 efbe4786 0fc19dc6 240ca1cc 2de92c6f 4a7484aa 5cb0a9dc 76f988da
@@ -76,10 +76,6 @@ k_fill=valueK.hex_to_bits()
 
 
 def Maj(x,y,z):
-    for i in range(len(x)):
-        x[i]=str(x[i])
-        y[i]=str(y[i])
-        z[i]=str(z[i])
     
     x=''.join(x)
     y=''.join(y)
@@ -90,11 +86,6 @@ def Maj(x,y,z):
     return  first_Block ^ (int(y,2) ^ int(z,2)) 
 
 def Ch(x, y, z):
-
-    for i in range(len(x)):
-        x[i]= str(x[i])
-        y[i] = str(y[i])
-        z[i]= str(z[i])
 
     x=''.join(x)
     y=''.join(y)
@@ -128,9 +119,10 @@ def cicle(valueH, valueK):
     g=valueH[6]
     h=valueH[7]
 
-    for x in range(64):
-        bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
-        bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
+    # for x in range(64):
+    bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
+    bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
+    return Ch(e,f,g)
         # t_one= h + ( e + bits_H_Ch + valueK[x] )
         # t_two= a + Maj(a,b,c)
         # # print(bits_H_Ch)
@@ -143,6 +135,7 @@ def cicle(valueH, valueK):
         # c = b
         # b = a
         # a = t_one + t_two
-        # break    
+        # break 
+          
 
-# print(cicle(k_fill,k_fill))
+print(cicle(k_fill,k_fill))
