@@ -7,7 +7,7 @@ def input_bit(text):
     bits=[]
     for byte in bytes:
         for bit in byte:
-            bits.append(bit) # tutte le stringhe bytes unite in una 
+            bits.append(bit) # add all bits in a single list
     return bits
 
 # print(input_bit('ci'))
@@ -16,7 +16,7 @@ def bits_to_hex(bits):
     bitsF=[]
     start=4
     for x in range(0,len(bits) - 3, 4):
-        bitsF.append(bits[x:start]) #dividere bits in 4 per hex
+        bitsF.append(bits[x:start]) #split 4 bits for hex
         start+=4
 
     pair_F_bit=''
@@ -24,12 +24,12 @@ def bits_to_hex(bits):
         for i,y in enumerate(x):
             x[i] = str(y) #trasformare bit 
         a = "".join(x)
-        pair_F_bit += hex(int(a,2)) [2:] # convertire int in hex e prendere solo 6 invece di 0x6
+        pair_F_bit += hex(int(a,2)) [2:] # convert int in hex ed cut x0
     return  pair_F_bit
 
 # print(bits_to_hex(input_bit('ci')))
 
-def fillzeros(bits,length=8,eldian='LE'):
+def fillzeros(bits,length=8,eldian='LE'): # add 0 until lenght
     l=len(bits)
     if eldian=='LE':
         while l < length:
@@ -58,17 +58,17 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 def padding(bits, lengthM):
     bits.append(str(1)) # ISO padding 
 
-    while len(bits) % 512 !=448:
+    while len(bits) % 512 !=448: # add 0 until reach 448 
         bits.append(str(0))
     
-    bits+=[x for x in bin(lengthM)[2:].zfill(64)] # aggunta rimanenti 64 bit che rappresentano lunghezza messaggio 
+    bits+=[x for x in bin(lengthM)[2:].zfill(64)] # add remainig 64 bits to the list
 
     return bits
 
 # message=input_bit('ciao')
 # print(padding(message, len(message)))
 
-def chunks(bits,chunk=8): #divide in chunk 512 bits a 32 bits
+def chunks(bits,chunk=8): #split list of 512 bits in chucks of 32 bits
     chunks_bits=[]
     Lbits=len(bits)
     for x in range(0,Lbits,chunk):

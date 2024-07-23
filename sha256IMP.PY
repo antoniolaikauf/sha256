@@ -70,21 +70,14 @@ valueH=initializer(h)
 h_fill=valueH.hex_to_bits()
 k_fill=valueK.hex_to_bits()
 
-def Maj(x,y,z):
-    
-    x=''.join(x)
-    y=''.join(y)
-    z=''.join(z)
-
+def Maj(x,y,z):  
+    x,y,z=''.join(x),''.join(y),''.join(z)
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
     first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
     return  first_Block ^ (int(y,2) ^ int(z,2)) 
 
 def Ch(x, y, z):
-
-    x=''.join(x)
-    y=''.join(y)
-    z=''.join(z) 
+    x,y,z=''.join(x),''.join(y),''.join(z) 
     # (x ^ y) xor (x  ^ z)
     return (int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2)) 
 
@@ -94,7 +87,7 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,32)
     w=[]
     w += chunks_message
-    for t in range(16,64): #aggiunta degli altri 32 bits di word fino ad arrivare a un tot di 64 
+    for t in range(16,64): #add the remainig 48 words of 32 bits 
           w_t7=int(''.join( w[t - 7]),2)
           w_t16=int(''.join(w[t - 16]),2)
           w_t=((sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16) % 2**32)
