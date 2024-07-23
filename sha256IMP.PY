@@ -34,9 +34,8 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 
 
 def rotate(x,n,w=32): # w lunghezza parola 
-    # print(bin((x >> n) | (x << (w - n))))
     return (x >> n) | (x << (w - n))   #ruota i bits più significativi 
-# 
+
 
 def sigma1(x):
     x=''.join(x)
@@ -71,7 +70,6 @@ valueH=initializer(h)
 h_fill=valueH.hex_to_bits()
 k_fill=valueK.hex_to_bits()
 
-
 def Maj(x,y,z):
     
     x=''.join(x)
@@ -81,6 +79,7 @@ def Maj(x,y,z):
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
     first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
     return  first_Block ^ (int(y,2) ^ int(z,2)) 
+
 def Ch(x, y, z):
 
     x=''.join(x)
@@ -99,10 +98,10 @@ def prepare_message(messagge):
           w_t7=int(''.join( w[t - 7]),2)
           w_t16=int(''.join(w[t - 16]),2)
           w_t=((sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16) % 2**32)
-          binary_string=bin(w_t)[2:].zfill(32)
-          binary_string=[x for x in  binary_string]
-          if len(binary_string) != 32 : raise ValueError('la lunghezza è maggiore')
-          w.append(binary_string)
+          word=bin(w_t)[2:].zfill(32) # words a 32 bits
+          word=[chr for chr in  word]
+          if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+          w.append(word)
     return  w
 
 print(prepare_message('ciao'))
