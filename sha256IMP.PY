@@ -1,3 +1,16 @@
+# num=2147483648
+# string=''
+
+
+# while num > 0:
+#     if num == 0 : string='0'
+#     string = str(num%2) + string
+#     num= num // 2
+
+# print(string)
+# exit(0)
+
+
 '''
 For SHA-256, the initial hash value, H(0), shall consist of the following eight 32-bit words, in 
 Questi valori sono i primi 32 bits della parte decimale della radice quadrata dei primi 8 numeri primi 
@@ -35,17 +48,19 @@ k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 
 def rotate(x,n):
     w=32 # lunghezza bits parola
-    x=int(str(x),2)
-    return (x >> n) | (x << (w - n)) & ((1 << w) - 1)  #ruota i bits più significativi 
+    x=int(x,2)
+    print(bin((x >> n) | (x << (w - n))))
+    return (x >> n) | (x << (w - n))   #ruota i bits più significativi 
+# & ((1 << w) - 1)
 
 def sigma1(x):
     x=''.join(x)
-    value=rotate(int(x),17) ^ rotate(int(x),19) ^ rotate(int(x),10)
+    value=rotate(x,17) ^ rotate(x,19) ^ rotate(x,10)
     return value
 
 def sigma0(x):
     x=''.join(x)
-    value= rotate(int(x),7) ^ rotate(int(x),18) ^ rotate(int(x),3)
+    value= rotate(x,7) ^ rotate(x,18) ^ rotate(x,3)
     return value
 
 class initializer():
@@ -79,7 +94,6 @@ def Maj(x,y,z):
     first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
     return  first_Block ^ (int(y,2) ^ int(z,2)) 
-
 def Ch(x, y, z):
 
     x=''.join(x)
@@ -94,17 +108,15 @@ def prepare_message(messagge):
     chunks_message= sha256testo.chunks(padd_message,32)
     w=[]
     w += chunks_message
-    for t in range(16,64): #aggiunta degli altri 32 bits di word fino ad arrivare a un tot di 64 
+    for t in range(16,17): #aggiunta degli altri 32 bits di word fino ad arrivare a un tot di 64 
           w_t7=int(''.join( w[t - 7]),2)
           w_t16=int(''.join(w[t - 16]),2)
           w_t=sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16 
-          w_t=[x[2:] for x in bin(w_t)[2:]]
-          w.append(['0'] + w_t)
+          if t == 16 : print(sigma1(w[t - 2])  ,w_t7 ,sigma0(w[t - 15]) , w_t16 , sep ='         ')
+          w_t=[x for x in bin(w_t)[2:]]
+          w.append(w_t)
           break
-    print(w[0])
-    return  len(w[16])
-# finire w deve aere 64 parola in bits cosi che si possan usare nel cicle ora ne ha 16 piu una aggiunta nel ciclo per il test
-
+    # return  w[16]
 
 print(prepare_message('ciao'))
 
