@@ -43,3 +43,5 @@ Tutti i vari tipi di SHA sono stati pubblicati dal NIST \
 - https://brilliant.org/wiki/secure-hashing-algorithms/
 
 - https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+
+![per immagini componenti clicca qui](img.md)
