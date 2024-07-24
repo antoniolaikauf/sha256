@@ -118,18 +118,17 @@ def cicle(valueH, valueK, valueW):
         wT=int(''.join(valueW[x]),2)
         kT=int(''.join(valueK[x]),2)
         t_one= h + (e + bits_H_Ch + kT + wT) 
-        print(colored(f'Ch:{bits_H_Ch}','red'), colored(f'Ch:{bits_H_Maj}','blue'), colored(f'Ch:{h}','green'), colored(f'Ch:{e}','dark_grey'), colored(f'Ch:{kT}','light_magenta'), colored(f'Ch:{wT}','cyan'),colored(f'Ch:{t_one}','light_blue'), sep='   ')
-        # t_two= a + Maj(a,b,c)
-        # # print(bits_H_Ch)
-        # # print(bits_H_Maj)
-        # h = g
-        # g = f
-        # f = e
-        # e = d + t_one
-        # d = c
-        # c = b
-        # b = a
-        # a = t_one + t_two 
+        print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
+        t_two= a + Maj(a,b,c)
+        print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
+        h = g
+        g = f
+        f = e
+        e = d + t_one
+        d = c
+        c = b
+        b = a
+        a = t_one + t_two 
           
 
 print(cicle(k_fill,k_fill,w))
