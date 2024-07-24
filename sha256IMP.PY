@@ -27,6 +27,7 @@ a2bfe8a1 a81a664b c24b8b70 c76c51a3 d192e819 d6990624 f40e3585 106aa070
 '''
 
 import sha256testo
+from termcolor import cprint , colored
 
 h = ['0x6a09e667', '0xbb67ae85', '0x3c6ef372', '0xa54ff53a', '0x510e527f', '0x9b05688c', '0x1f83d9ab', '0x5be0cd19']
 
@@ -109,14 +110,15 @@ def cicle(valueH, valueK, valueW):
     g=int(''.join(valueH[6]),2)
     h=int(''.join(valueH[7]),2)
     
-    for x in range(1):
+    for x in range(64):
         # bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
         # bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32) #32 bits 
-        bits_H_Ch= Ch(e,f,g) # 32  bits
+        bits_H_Ch= Ch(e,f,g) #32 bits
         bits_H_Maj=Maj(a,b,c) #32 bits 
-        # t_one= h + e + bits_H_Ch + valueK[x] + valueW[x] 
-        print(f'Ch:{bits_H_Ch}    Maj:{bits_H_Maj}    h:{h}     e:{e}      valueW[x]:{valueW[x]}       valueK[x]:{valueK[x]}')
-
+        wT=int(''.join(valueW[x]),2)
+        kT=int(''.join(valueK[x]),2)
+        t_one= h + (e + bits_H_Ch + kT + wT) 
+        print(colored(f'Ch:{bits_H_Ch}','red'), colored(f'Ch:{bits_H_Maj}','blue'), colored(f'Ch:{h}','green'), colored(f'Ch:{e}','dark_grey'), colored(f'Ch:{kT}','light_magenta'), colored(f'Ch:{wT}','cyan'),colored(f'Ch:{t_one}','light_blue'), sep='   ')
         # t_two= a + Maj(a,b,c)
         # # print(bits_H_Ch)
         # # print(bits_H_Maj)
