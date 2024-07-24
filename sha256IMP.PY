@@ -121,7 +121,7 @@ def cicle(valueH, valueK, messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-
+    # TODO sitemare il ciclo se la frase è piu lunga di 512 bits si devono avere due blocchi dei messaggi ora è provvisorio
     for x in range(1):
         
        valueW=[]
@@ -134,14 +134,14 @@ def cicle(valueH, valueK, messagge):
             word=[chr for chr in  word]
             if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
             valueW.append(word)
-    
+
+       if len(valueW) != 64 : raise ValueError 
        # for message_block in bloc
-       for x in range(64):
+       for t in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
             bits_H_Maj=Maj(a,b,c) #32 bits 
-            print(bin(bits_H_Ch))
-            wT=int(''.join(valueW[x]),2)
-            kT=valueK[x]
+            wT=int(''.join(valueW[t]),2)
+            kT=valueK[t]
             t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
             # print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
             t_two= (a + bits_H_Maj) % 2**32
@@ -154,27 +154,31 @@ def cicle(valueH, valueK, messagge):
             c = b
             b = a
             a = (t_one + t_two) % 2**32
-    
+            print(b,e,f,g,h, sep='       ')
+            h0= a + valueH[0] % 2**32
+            h1= b + valueH[1] % 2**32
+            h2= c + valueH[2] % 2**32
+            h3= d + valueH[3] % 2**32
+            h4= e + valueH[4] % 2**32
+            h5= f + valueH[5] % 2**32
+            h6= g + valueH[6] % 2**32
+            h7= h + valueH[7] % 2**32
+       # problema h1 h4 h6 h7
+            print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
+            
 
-       h0= a + valueH[0]
-       h1= b + valueH[1]
-       h2= c + valueH[2]
-       h3= d + valueH[3]
-       h4= e + valueH[4]
-       h5= f + valueH[5]
-       h6= g + valueH[6]
-       h7= h + valueH[7]
-    # print(len(bin(h0))[2:])
-    return
-    print(len(bin(h0)[2:]))
-    print(len(bin(h1)[2:]))
-    print(len(bin(h2)[2:])) #2 3 6 7 c d g h 
-    print(len(bin(h3)[2:]))
-    print(len(bin(h4)[2:]))
-    print(len(bin(h5)[2:]))
-    print(len(bin(h6)[2:]))
-    print(len(bin(h7)[2:]))
-    return len(bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:]) 
+    #    h0= a + valueH[0] % 2**32
+    #    h1= b + valueH[1] % 2**32
+    #    h2= c + valueH[2] % 2**32
+    #    h3= d + valueH[3] % 2**32
+    #    h4= e + valueH[4] % 2**32
+    #    h5= f + valueH[5] % 2**32
+    #    h6= g + valueH[6] % 2**32
+    #    h7= h + valueH[7] % 2**32
+    #    # problema h1 h2 h3 
+    #    print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
+
+    # return len(bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:])
 bits_word=cicle(H,K,'ciao')
 # print(sha256testo.bits_to_hex(bits_word))
 print(bits_word)
