@@ -71,15 +71,15 @@ h_fill=valueH.hex_to_bits()
 k_fill=valueK.hex_to_bits()
 
 def Maj(x,y,z):  
-    x,y,z=''.join(x),''.join(y),''.join(z)
+    # x,y,z=''.join(x),''.join(y),''.join(z)
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
-    first_Block=(int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2))
-    return  first_Block ^ (int(y,2) ^ int(z,2)) 
+    first_Block=(x ^ y) ^ (x ^ z)
+    return  first_Block ^ (y ^ z) 
 
 def Ch(x, y, z):
-    x,y,z=''.join(x),''.join(y),''.join(z) 
+    # x,y,z=''.join(x),''.join(y),''.join(z)
     # (x ^ y) xor (x  ^ z)
-    return (int(x,2) ^ int(y,2)) ^ (int(x,2) ^ int(z,2)) 
+    return (x ^ y) ^ (x ^ z) 
 
 def prepare_message(messagge):
     bits_message=sha256testo.input_bit(messagge)
@@ -96,23 +96,27 @@ def prepare_message(messagge):
           if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
           w.append(word)
     return  w
+w = prepare_message('ciao')
+# print(prepare_message('ciao'))
 
-print(prepare_message('ciao'))
+def cicle(valueH, valueK, valueW):
+    a=int(''.join(valueH[0]),2)
+    b=int(''.join(valueH[1]),2)
+    c=int(''.join(valueH[2]),2)
+    d=int(''.join(valueH[3]),2)
+    e=int(''.join(valueH[4]),2)
+    f=int(''.join(valueH[5]),2)
+    g=int(''.join(valueH[6]),2)
+    h=int(''.join(valueH[7]),2)
+    
+    for x in range(1):
+        # bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
+        # bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32) #32 bits 
+        bits_H_Ch= Ch(e,f,g) # 32  bits
+        bits_H_Maj=Maj(a,b,c) #32 bits 
+        # t_one= h + e + bits_H_Ch + valueK[x] + valueW[x] 
+        print(f'Ch:{bits_H_Ch}    Maj:{bits_H_Maj}    h:{h}     e:{e}      valueW[x]:{valueW[x]}       valueK[x]:{valueK[x]}')
 
-def cicle(valueH, valueK):
-    a=valueH[0]
-    b=valueH[1]
-    c=valueH[2]
-    d=valueH[3]
-    e=valueH[4]
-    f=valueH[5]
-    g=valueH[6]
-    h=valueH[7]
-
-    for x in range(64):
-        bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
-        bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32)
-        # t_one= h + ( e + bits_H_Ch + valueK[x] )
         # t_two= a + Maj(a,b,c)
         # # print(bits_H_Ch)
         # # print(bits_H_Maj)
@@ -126,4 +130,4 @@ def cicle(valueH, valueK):
         # a = t_one + t_two 
           
 
-# print(cicle(k_fill,k_fill))
+print(cicle(k_fill,k_fill,w))
