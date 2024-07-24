@@ -98,7 +98,7 @@ def prepare_message(messagge):
           w.append(word)
     return  w
 w = prepare_message('ciao')
-# print(prepare_message('ciao'))
+print(prepare_message('ciao'))
 
 def cicle(valueH, valueK, valueW):
     a=int(''.join(valueH[0]),2)
@@ -110,25 +110,33 @@ def cicle(valueH, valueK, valueW):
     g=int(''.join(valueH[6]),2)
     h=int(''.join(valueH[7]),2)
     
+
+    # for message_block in bloc
     for x in range(64):
-        # bits_H_Ch= bin(Ch(e,f,g))[2:].zfill(32) # 32  bits
-        # bits_H_Maj=bin(Maj(a,b,c))[2:].zfill(32) #32 bits 
         bits_H_Ch= Ch(e,f,g) #32 bits
         bits_H_Maj=Maj(a,b,c) #32 bits 
         wT=int(''.join(valueW[x]),2)
         kT=int(''.join(valueK[x]),2)
-        t_one= h + (e + bits_H_Ch + kT + wT) 
+        t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
         print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
         t_two= a + Maj(a,b,c)
         print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
         h = g
         g = f
         f = e
-        e = d + t_one
+        e = (d + t_one) % 2**32 
         d = c
         c = b
         b = a
-        a = t_one + t_two 
-          
+        a = (t_one + t_two) % 2**32
+    
+    h0= a + int(''.join(valueH[0]),2)  
+    h1= b + int(''.join(valueH[1]),2)  
+    h2= c + int(''.join(valueH[2]),2)  
+    h3= d + int(''.join(valueH[3]),2)  
+    h4= e + int(''.join(valueH[4]),2)  
+    h5= f + int(''.join(valueH[5]),2)  
+    h6= g + int(''.join(valueH[6]),2)  
+    h7= h + int(''.join(valueH[7]),2)  
 
-print(cicle(k_fill,k_fill,w))
+# print(cicle(k_fill,k_fill,w))
