@@ -29,9 +29,20 @@ a2bfe8a1 a81a664b c24b8b70 c76c51a3 d192e819 d6990624 f40e3585 106aa070
 import sha256testo
 from termcolor import cprint , colored
 
-h = ['0x6a09e667', '0xbb67ae85', '0x3c6ef372', '0xa54ff53a', '0x510e527f', '0x9b05688c', '0x1f83d9ab', '0x5be0cd19']
+# h = ['0x6a09e667', '0xbb67ae85', '0x3c6ef372', '0xa54ff53a', '0x510e527f', '0x9b05688c', '0x1f83d9ab', '0x5be0cd19']
 
-k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59f111f1', '0x923f82a4','0xab1c5ed5', '0xd807aa98', '0x12835b01', '0x243185be', '0x550c7dc3', '0x72be5d74', '0x80deb1fe','0x9bdc06a7', '0xc19bf174', '0xe49b69c1', '0xefbe4786', '0x0fc19dc6', '0x240ca1cc', '0x2de92c6f','0x4a7484aa', '0x5cb0a9dc', '0x76f988da', '0x983e5152', '0xa831c66d', '0xb00327c8', '0xbf597fc7','0xc6e00bf3', '0xd5a79147', '0x06ca6351', '0x14292967', '0x27b70a85', '0x2e1b2138', '0x4d2c6dfc','0x53380d13', '0x650a7354', '0x766a0abb', '0x81c2c92e', '0x92722c85', '0xa2bfe8a1', '0xa81a664b','0xc24b8b70', '0xc76c51a3', '0xd192e819', '0xd6990624', '0xf40e3585', '0x106aa070', '0x19a4c116','0x1e376c08', '0x2748774c', '0x34b0bcb5', '0x391c0cb3', '0x4ed8aa4a', '0x5b9cca4f', '0x682e6ff3','0x748f82ee', '0x78a5636f', '0x84c87814', '0x8cc70208', '0x90befffa', '0xa4506ceb', '0xbef9a3f7','0xc67178f2']
+# k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59f111f1', '0x923f82a4','0xab1c5ed5', '0xd807aa98', '0x12835b01', '0x243185be', '0x550c7dc3', '0x72be5d74', '0x80deb1fe','0x9bdc06a7', '0xc19bf174', '0xe49b69c1', '0xefbe4786', '0x0fc19dc6', '0x240ca1cc', '0x2de92c6f','0x4a7484aa', '0x5cb0a9dc', '0x76f988da', '0x983e5152', '0xa831c66d', '0xb00327c8', '0xbf597fc7','0xc6e00bf3', '0xd5a79147', '0x06ca6351', '0x14292967', '0x27b70a85', '0x2e1b2138', '0x4d2c6dfc','0x53380d13', '0x650a7354', '0x766a0abb', '0x81c2c92e', '0x92722c85', '0xa2bfe8a1', '0xa81a664b','0xc24b8b70', '0xc76c51a3', '0xd192e819', '0xd6990624', '0xf40e3585', '0x106aa070', '0x19a4c116','0x1e376c08', '0x2748774c', '0x34b0bcb5', '0x391c0cb3', '0x4ed8aa4a', '0x5b9cca4f', '0x682e6ff3','0x748f82ee', '0x78a5636f', '0x84c87814', '0x8cc70208', '0x90befffa', '0xa4506ceb', '0xbef9a3f7','0xc67178f2']
+H= [ 0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x9b05688c, 0x510e527f, 0x1f83d9ab, 0x5be0cd19]
+K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+]
 
 
 def rotate(x,n,w=32): # w lunghezza parola 
@@ -50,93 +61,121 @@ def sigma0(x):
     value= rotate(x,7) ^ rotate(x,18) ^ x >> 3
     return value
 
-class initializer():
-    def __init__(self,value):
-        self.value= value
+# class initializer():
+#     def __init__(self,value):
+#         self.value= value
 
-    def hex_to_bits(self):
-        binaries=[str(bin(int(x[2:],16))[2:]) for x in (self.value)] #hex to bits
-        # print(binaries)
-        bits=[]
-        for bit in binaries:
-            words=[]
-            for x in bit:
-               words.append(x)
-            bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
-        return bits
+#     def hex_to_bits(self):
+#         binaries=[str(bin(int(x[2:],16))[2:]) for x in (self.value)] #hex to bits
+#         # print(binaries)
+#         bits=[]
+#         for bit in binaries:
+#             words=[]
+#             for x in bit:
+#                words.append(x)
+#             bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
+#         return bits
 
+# valueK=initializer(k)
+# valueH=initializer(h)
+# h_fill=valueH.hex_to_bits()
+# k_fill=valueK.hex_to_bits()
 
-valueK=initializer(k)
-valueH=initializer(h)
-h_fill=valueH.hex_to_bits()
-k_fill=valueK.hex_to_bits()
-
-def Maj(x,y,z):  
-    # x,y,z=''.join(x),''.join(y),''.join(z)
+def Maj(x,y,z): 
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
-    first_Block=(x ^ y) ^ (x ^ z)
-    return  first_Block ^ (y ^ z) 
+    return  (x ^ y) ^ (x ^ z) ^ (y ^ z) 
 
 def Ch(x, y, z):
-    # x,y,z=''.join(x),''.join(y),''.join(z)
     # (x ^ y) xor (x  ^ z)
     return (x ^ y) ^ (x ^ z) 
 
-def prepare_message(messagge):
+# def prepare_message(messagge):
+#     bits_message=sha256testo.input_bit(messagge)
+#     padd_message=sha256testo.padding(bits_message,len(bits_message))
+#     chunks_message= sha256testo.chunks(padd_message,32)
+#     w=[]
+#     w += chunks_message
+#     for t in range(16,64): #add the remainig 48 words of 32 bits 
+#           w_t7=int(''.join( w[t - 7]),2)
+#           w_t16=int(''.join(w[t - 16]),2)
+#           w_t=((sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16) % 2**32)
+#           word=bin(w_t)[2:].zfill(32) # words a 32 bits
+#           word=[chr for chr in  word]
+#           if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+#           w.append(word)
+#     return  w
+# w = prepare_message('ciao')
+# print(prepare_message('ciao'))
+
+def cicle(valueH, valueK, messagge):
+    # a=int(''.join(valueH[0]),2)
+    a = valueH[0]
+    # b=int(''.join(valueH[1]),2)
+    # c=int(''.join(valueH[2]),2)
+    # d=int(''.join(valueH[3]),2)
+    # e=int(''.join(valueH[4]),2)
+    # f=int(''.join(valueH[5]),2)
+    # g=int(''.join(valueH[6]),2)
+    # h=int(''.join(valueH[7]),2)
+
+    print(a)
+    return
+    
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-    w=[]
-    w += chunks_message
-    for t in range(16,64): #add the remainig 48 words of 32 bits 
-          w_t7=int(''.join( w[t - 7]),2)
-          w_t16=int(''.join(w[t - 16]),2)
-          w_t=((sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16) % 2**32)
-          word=bin(w_t)[2:].zfill(32) # words a 32 bits
-          word=[chr for chr in  word]
-          if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
-          w.append(word)
-    return  w
-w = prepare_message('ciao')
-print(prepare_message('ciao'))
 
-def cicle(valueH, valueK, valueW):
-    a=int(''.join(valueH[0]),2)
-    b=int(''.join(valueH[1]),2)
-    c=int(''.join(valueH[2]),2)
-    d=int(''.join(valueH[3]),2)
-    e=int(''.join(valueH[4]),2)
-    f=int(''.join(valueH[5]),2)
-    g=int(''.join(valueH[6]),2)
-    h=int(''.join(valueH[7]),2)
+    for x in range(1):
+        
+       valueW=[]
+       valueW += chunks_message
+       for t in range(16,64): #add the remainig 48 words of 32 bits 
+            w_t7=int(''.join( valueW[t - 7]),2)
+            w_t16=int(''.join(valueW[t - 16]),2)
+            w_t=((sigma1(valueW[t - 2])  + w_t7  + sigma0(valueW[t - 15]) + w_t16) % 2**32)
+            word=bin(w_t)[2:].zfill(32) # words a 32 bits
+            word=[chr for chr in  word]
+            if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+            valueW.append(word)
     
-
-    # for message_block in bloc
-    for x in range(64):
-        bits_H_Ch= Ch(e,f,g) #32 bits
-        bits_H_Maj=Maj(a,b,c) #32 bits 
-        wT=int(''.join(valueW[x]),2)
-        kT=int(''.join(valueK[x]),2)
-        t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
-        print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
-        t_two= a + Maj(a,b,c)
-        print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
-        h = g
-        g = f
-        f = e
-        e = (d + t_one) % 2**32 
-        d = c
-        c = b
-        b = a
-        a = (t_one + t_two) % 2**32
+       # for message_block in bloc
+       for x in range(64):
+            bits_H_Ch= Ch(e,f,g) #32 bits
+            bits_H_Maj=Maj(a,b,c) #32 bits 
+            if len(bin(bits_H_Ch)) ==32 : print(bits_H_Ch, x, bin(bits_H_Ch))
+            wT=int(''.join(valueW[x]),2)
+            kT=int(''.join(valueK[x]),2)
+            t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
+            # print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
+            t_two= a + bits_H_Maj
+            # print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
+            h = g
+            g = f
+            f = e
+            e = (d + t_one) % 2**32 
+            d = c
+            c = b
+            b = a
+            a = (t_one + t_two) % 2**32
     
-    h0= a + int(''.join(valueH[0]),2)  
-    h1= b + int(''.join(valueH[1]),2)  
-    h2= c + int(''.join(valueH[2]),2)  
-    h3= d + int(''.join(valueH[3]),2)  
-    h4= e + int(''.join(valueH[4]),2)  
-    h5= f + int(''.join(valueH[5]),2)  
-    h6= g + int(''.join(valueH[6]),2)  
-    h7= h + int(''.join(valueH[7]),2)  
-
-# print(cicle(k_fill,k_fill,w))
+       h0= a + int(''.join(valueH[0]),2)  
+       h1= b + int(''.join(valueH[1]),2)  
+       h2= c + int(''.join(valueH[2]),2)  
+       h3= d + int(''.join(valueH[3]),2)  
+       h4= e + int(''.join(valueH[4]),2)  
+       h5= f + int(''.join(valueH[5]),2)  
+       h6= g + int(''.join(valueH[6]),2)  
+       h7= h + int(''.join(valueH[7]),2)  
+    # print(len(bin(h0))[2:])
+    print(len(bin(h0)[2:]))
+    print(len(bin(h1)[2:]))
+    print(len(bin(h2)[2:])) #2 3 6 7 c d g h 
+    print(len(bin(h3)[2:]))
+    print(len(bin(h4)[2:]))
+    print(len(bin(h5)[2:]))
+    print(len(bin(h6)[2:]))
+    print(len(bin(h7)[2:]))
+    return len(bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:]) 
+bits_word=cicle(H,K,'ciao')
+# print(sha256testo.bits_to_hex(bits_word))
+print(bits_word)

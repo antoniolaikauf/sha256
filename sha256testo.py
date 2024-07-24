@@ -18,7 +18,7 @@ def bits_to_hex(bits):
     for x in range(0,len(bits) - 3, 4):
         bitsF.append(bits[x:start]) #split 4 bits for hex
         start+=4
-
+    print(len(bitsF))
     pair_F_bit=''
     for x in bitsF:
         for i,y in enumerate(x):
