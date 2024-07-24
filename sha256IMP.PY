@@ -108,18 +108,15 @@ def Ch(x, y, z):
 # print(prepare_message('ciao'))
 
 def cicle(valueH, valueK, messagge):
-    # a=int(''.join(valueH[0]),2)
-    a = valueH[0]
-    # b=int(''.join(valueH[1]),2)
-    # c=int(''.join(valueH[2]),2)
-    # d=int(''.join(valueH[3]),2)
-    # e=int(''.join(valueH[4]),2)
-    # f=int(''.join(valueH[5]),2)
-    # g=int(''.join(valueH[6]),2)
-    # h=int(''.join(valueH[7]),2)
+    a=valueH[0]
+    b=valueH[1]
+    c=valueH[2]
+    d=valueH[3]
+    e=valueH[4]
+    f=valueH[5]
+    g=valueH[6]
+    h=valueH[7]
 
-    print(a)
-    return
     
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
@@ -142,12 +139,12 @@ def cicle(valueH, valueK, messagge):
        for x in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
             bits_H_Maj=Maj(a,b,c) #32 bits 
-            if len(bin(bits_H_Ch)) ==32 : print(bits_H_Ch, x, bin(bits_H_Ch))
+            print(bin(bits_H_Ch))
             wT=int(''.join(valueW[x]),2)
-            kT=int(''.join(valueK[x]),2)
+            kT=valueK[x]
             t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
             # print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
-            t_two= a + bits_H_Maj
+            t_two= (a + bits_H_Maj) % 2**32
             # print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
             h = g
             g = f
@@ -158,15 +155,17 @@ def cicle(valueH, valueK, messagge):
             b = a
             a = (t_one + t_two) % 2**32
     
-       h0= a + int(''.join(valueH[0]),2)  
-       h1= b + int(''.join(valueH[1]),2)  
-       h2= c + int(''.join(valueH[2]),2)  
-       h3= d + int(''.join(valueH[3]),2)  
-       h4= e + int(''.join(valueH[4]),2)  
-       h5= f + int(''.join(valueH[5]),2)  
-       h6= g + int(''.join(valueH[6]),2)  
-       h7= h + int(''.join(valueH[7]),2)  
+
+       h0= a + valueH[0]
+       h1= b + valueH[1]
+       h2= c + valueH[2]
+       h3= d + valueH[3]
+       h4= e + valueH[4]
+       h5= f + valueH[5]
+       h6= g + valueH[6]
+       h7= h + valueH[7]
     # print(len(bin(h0))[2:])
+    return
     print(len(bin(h0)[2:]))
     print(len(bin(h1)[2:]))
     print(len(bin(h2)[2:])) #2 3 6 7 c d g h 
