@@ -1,4 +1,14 @@
 '''
+&
+6 = 0000000000000110
+3 = 0000000000000011
+--------------------
+2 = 0000000000000010
+====================
+
+The ~ operator inverts each bit (0 becomes 1 and 1 becomes 0).
+
+
 For SHA-256, the initial hash value, H(0), shall consist of the following eight 32-bit words, in 
 Questi valori sono i primi 32 bits della parte decimale della radice quadrata dei primi 8 numeri primi 
 hex:
@@ -46,7 +56,7 @@ K = [
 
 
 def rotate(x,n,w=32): # w lunghezza parola 
-    return (x >> n) | (x << (w - n))   #ruota i bits più significativi 
+    return (x >> n) | (x << w - n)   #ruota i bits più significativi 
 
 
 def sigma1(x):
@@ -83,11 +93,11 @@ def sigma0(x):
 
 def Maj(x,y,z): 
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
-    return  (x ^ y) ^ (x ^ z) ^ (y ^ z) 
+    return  (x & y) ^ (x & z) ^ (y & z) 
 
 def Ch(x, y, z):
     # (x ^ y) xor (x  ^ z)
-    return (x ^ y) ^ (x ^ z) 
+    return (x & y) ^ (~x & z) 
 
 # def prepare_message(messagge):
 #     bits_message=sha256testo.input_bit(messagge)
@@ -114,8 +124,6 @@ def _capsigma0(x):
 def _capsigma1(x):
     return rotate(x,6) ^ rotate(x,11) ^ rotate(x,25)
     
-
-
 def cicle(valueH, valueK, messagge):
     a=valueH[0]
     b=valueH[1]
@@ -130,7 +138,6 @@ def cicle(valueH, valueK, messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-    # TODO sitemare il ciclo se la frase è piu lunga di 512 bits si devono avere due blocchi dei messaggi ora è provvisorio
     for x in range(1):
         
        valueW=[]
@@ -139,9 +146,10 @@ def cicle(valueH, valueK, messagge):
             w_t7=int(''.join( valueW[t - 7]),2)
             w_t16=int(''.join(valueW[t - 16]),2)
             w_t=((sigma1(valueW[t - 2])  + w_t7  + sigma0(valueW[t - 15]) + w_t16) % 2**32)
-            word=bin(w_t)[2:].zfill(32) # words a 32 bits
+            word=bin(w_t)[2:] # words a 32 bits
             word=[chr for chr in  word]
-            if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+            # print(''.join(word))
+            # if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
             valueW.append(word)
 
        if len(valueW) != 64 : raise ValueError 
@@ -189,6 +197,6 @@ def cicle(valueH, valueK, messagge):
     #    print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
 
     return bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:]
-bits_word=cicle(H,K,'ciao')
-print(bits_word)
+bits_word=cicle(H,K,'hello world') 
+print(len(bits_word))
 print(sha256testo.bits_to_hex(bits_word))

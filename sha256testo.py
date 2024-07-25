@@ -18,13 +18,13 @@ def bits_to_hex(bits):
     for x in range(0,len(bits) - 3, 4):
         bitsF.append(bits[x:start]) #split 4 bits for hex
         start+=4
-    print(len(bitsF))
+    # print(bitsF)
     pair_F_bit=''
     for x in bitsF:
-        for i,y in enumerate(x):
-            x[i] = str(y) #trasformare bit 
-        a = "".join(x)
-        pair_F_bit += hex(int(a,2)) [2:] # convert int in hex ed cut x0
+        # for i,y in enumerate(x):
+        #     x[i] = str(y) #trasformare bit 
+        # a = "".join(x)
+        pair_F_bit += hex(int(x,2)) [2:] # convert int in hex ed cut x0
     return  pair_F_bit
 
 # print(bits_to_hex(input_bit('ci')))
