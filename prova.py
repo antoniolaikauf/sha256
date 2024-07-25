@@ -84,7 +84,7 @@ def step5(words):
         else:
             words[i] = temp.zfill(32)
         
-    # print(words)
+    print(words)
     return words
 
 def step6(words, hVals):

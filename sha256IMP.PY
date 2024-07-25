@@ -146,12 +146,16 @@ def cicle(valueH, valueK, messagge):
             w_t7=int(''.join( valueW[t - 7]),2)
             w_t16=int(''.join(valueW[t - 16]),2)
             w_t=((sigma1(valueW[t - 2])  + w_t7  + sigma0(valueW[t - 15]) + w_t16) % 2**32)
-            word=bin(w_t)[2:] # words a 32 bits
+            word=bin(w_t)[2:].zfill(32) # words a 32 bits
             word=[chr for chr in  word]
-            # print(''.join(word))
-            # if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+            if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
             valueW.append(word)
-
+       clank=[]
+       for x in valueW:
+           clank.append(''.join(x))
+    #    print(clank)
+    #    return
+           
        if len(valueW) != 64 : raise ValueError 
        # for message_block in bloc
        for t in range(64):
