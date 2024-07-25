@@ -110,8 +110,7 @@ def step6(words, hVals):
         # print(maj,ch, sep='      ')
         temp2 = S0 + maj
         temp2 = temp2 % (2**32)
-        print(temp2,maj,S0,sep='      ')
-        break
+        # print(temp2,maj,S0,sep='      ')
         h = g.zfill(32)
         g = f.zfill(32)
         f = e.zfill(32)
@@ -120,6 +119,8 @@ def step6(words, hVals):
         c = b.zfill(32)
         b = a.zfill(32)
         a = bin((temp1 + temp2) % (2**32))[2:].zfill(32)
+        # print(int(a,2),int(b,2),int(c,2),int(d,2),int(e,2),int(f,2),int(g,2),int(h,2), sep='      ')
+
     
     return [a, b, c, d, e, f, g, h]
 
@@ -133,6 +134,8 @@ def step7(varsList, hVals):
     h5 = bin((int(hVals[5], 2) + int(varsList[5], 2)) % (2**32))[2:].zfill(32)
     h6 = bin((int(hVals[6], 2) + int(varsList[6], 2)) % (2**32))[2:].zfill(32)
     h7 = bin((int(hVals[7], 2) + int(varsList[7], 2)) % (2**32))[2:].zfill(32)
+    # print(int(hVals[1], 2),int(varsList[1], 2),int(h1,2),int(hVals[5], 2) , int(varsList[5], 2),int(h5,2),sep='   ')
+    print(int(h0,2),int(h1,2),int(h2,2),int(h3,2),int(h4,2),int(h5,2),int(h6,2),int(h7,2), sep='    ')
 
     return [h0, h1, h2, h3, h4, h5, h6, h7]
 
