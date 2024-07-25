@@ -84,7 +84,6 @@ def step5(words):
         else:
             words[i] = temp.zfill(32)
         
-    print(words)
     return words
 
 def step6(words, hVals):
@@ -101,12 +100,18 @@ def step6(words, hVals):
     for i in range(64):
         S1 = int(rightRotate(e, 6), 2) ^ int(rightRotate(e, 11), 2) ^ int(rightRotate(e, 25), 2)
         ch = (int(e, 2) & int(f, 2)) ^ ((int(e, 2) ^ 4294967295) & int(g, 2))
+        # print(int(e, 2),int(f, 2),int(g, 2), sep='         ') 
         temp1 = int(h, 2) + S1 + ch + int(words[i], 2) + int(roundConstants[i])
+        # print(S1,ch,int(h, 2),int(words[i], 2) , int(roundConstants[i]) ,sep='       ')
         temp1 = temp1 % (2**32)
+
         S0 = int(rightRotate(a, 2), 2) ^ int(rightRotate(a, 13), 2) ^ int(rightRotate(a, 22), 2)
         maj = (int(a, 2) & int(b, 2)) ^ (int(a, 2) & int(c, 2)) ^ (int(b, 2) & int(c, 2))
+        # print(maj,ch, sep='      ')
         temp2 = S0 + maj
         temp2 = temp2 % (2**32)
+        print(temp2,maj,S0,sep='      ')
+        break
         h = g.zfill(32)
         g = f.zfill(32)
         f = e.zfill(32)
