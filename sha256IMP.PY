@@ -107,6 +107,15 @@ def Ch(x, y, z):
 # w = prepare_message('ciao')
 # print(prepare_message('ciao'))
 
+def _capsigma0(x):
+   return rotate(x,2) ^ rotate(x,13) ^ rotate(x,22)
+
+
+def _capsigma1(x):
+    return rotate(x,6) ^ rotate(x,11) ^ rotate(x,25)
+    
+
+
 def cicle(valueH, valueK, messagge):
     a=valueH[0]
     b=valueH[1]
@@ -142,9 +151,11 @@ def cicle(valueH, valueK, messagge):
             bits_H_Maj=Maj(a,b,c) #32 bits 
             wT=int(''.join(valueW[t]),2)
             kT=valueK[t]
-            t_one= (h + e + bits_H_Ch + kT + wT ) % 2**32
+            eT=_capsigma1(e)
+            t_one= (h + eT + bits_H_Ch + kT + wT ) % 2**32
             # print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
-            t_two= (a + bits_H_Maj) % 2**32
+            aT=_capsigma0(a)
+            t_two= (aT + bits_H_Maj) % 2**32
             # print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
             h = g
             g = f
@@ -154,7 +165,7 @@ def cicle(valueH, valueK, messagge):
             c = b
             b = a
             a = (t_one + t_two) % 2**32
-            print(b,e,f,g,h, sep='       ')
+            # print(b,e,f,g,h, sep='       ')ù
             h0= a + valueH[0] % 2**32
             h1= b + valueH[1] % 2**32
             h2= c + valueH[2] % 2**32
@@ -166,15 +177,6 @@ def cicle(valueH, valueK, messagge):
        # problema h1 h4 h6 h7
             print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
             
-
-    #    h0= a + valueH[0] % 2**32
-    #    h1= b + valueH[1] % 2**32
-    #    h2= c + valueH[2] % 2**32
-    #    h3= d + valueH[3] % 2**32
-    #    h4= e + valueH[4] % 2**32
-    #    h5= f + valueH[5] % 2**32
-    #    h6= g + valueH[6] % 2**32
-    #    h7= h + valueH[7] % 2**32
     #    # problema h1 h2 h3 
     #    print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
 
