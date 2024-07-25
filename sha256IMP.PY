@@ -184,14 +184,15 @@ def cicle(valueH, valueK, messagge):
             a = (t_one + t_two) % 2**32
             # print(a,b,c,d,e,f,g,h, sep='       ')
 
-    h0=bin((a + valueH[0]) % 2**32).zfill(32)[2:]
-    h1=bin((b + valueH[1]) % 2**32).zfill(32)[2:]
-    h2=bin((c + valueH[2]) % 2**32).zfill(32)[2:]
-    h3=bin((d + valueH[3]) % 2**32).zfill(32)[2:]
-    h4=bin((e + valueH[4]) % 2**32).zfill(32)[2:]
-    h5=bin((f + valueH[5]) % 2**32).zfill(32)[2:]
-    h6=bin((g + valueH[6]) % 2**32).zfill(32)[2:]
-    h7=bin((h + valueH[7]) % 2**32).zfill(32)[2:]
+    h0=bin((a + valueH[0]) % 2**32)[2:].zfill(32)
+    h1=bin((b + valueH[1]) % 2**32)[2:].zfill(32)
+    h2=bin((c + valueH[2]) % 2**32)[2:].zfill(32)
+    h3=bin((d + valueH[3]) % 2**32)[2:].zfill(32)
+    h4=bin((e + valueH[4]) % 2**32)[2:].zfill(32)
+    h5=bin((f + valueH[5]) % 2**32)[2:].zfill(32)
+    h6=bin((g + valueH[6]) % 2**32)[2:].zfill(32)
+    h7=bin((h + valueH[7]) % 2**32)[2:].zfill(32)
+
     #h1 h5 
     # print( b , valueH[1],h1,f, valueH[5],h5 ,sep='   ')
     print(h0,h1,h2,h3,h4,h5,h6,h7, sep='    ')
@@ -200,4 +201,4 @@ def cicle(valueH, valueK, messagge):
     # return bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:]
 bits_word=cicle(H,K,'hello world') 
 print(len(bits_word))
-# print(sha256testo.bits_to_hex(bits_word))
+print(sha256testo.bits_to_hex(bits_word))
