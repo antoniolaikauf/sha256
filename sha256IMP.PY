@@ -72,44 +72,6 @@ def sigma0(x):
     value= rotate(x,7) ^ rotate(x,18) ^ x >> 3
     return value
 
-# class initializer():
-#     def __init__(self,value):
-#         self.value= value
-
-#     def hex_to_bits(self):
-#         binaries=[str(bin(int(x[2:],16))[2:]) for x in (self.value)] #hex to bits
-#         # print(binaries)
-#         bits=[]
-#         for bit in binaries:
-#             words=[]
-#             for x in bit:
-#                words.append(x)
-#             bits.append(sha256testo.fillzeros(words,32,'LE')) # add bits fino a 32 
-#         return bits
-
-# valueK=initializer(k)
-# valueH=initializer(h)
-# h_fill=valueH.hex_to_bits()
-# k_fill=valueK.hex_to_bits()
-
-
-# def prepare_message(messagge):
-#     bits_message=sha256testo.input_bit(messagge)
-#     padd_message=sha256testo.padding(bits_message,len(bits_message))
-#     chunks_message= sha256testo.chunks(padd_message,32)
-#     w=[]
-#     w += chunks_message
-#     for t in range(16,64): #add the remainig 48 words of 32 bits 
-#           w_t7=int(''.join( w[t - 7]),2)
-#           w_t16=int(''.join(w[t - 16]),2)
-#           w_t=((sigma1(w[t - 2])  + w_t7  + sigma0(w[t - 15]) + w_t16) % 2**32)
-#           word=bin(w_t)[2:].zfill(32) # words a 32 bits
-#           word=[chr for chr in  word]
-#           if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
-#           w.append(word)
-#     return  w
-# w = prepare_message('ciao')
-# print(prepare_message('ciao'))
 
 def Maj(x,y,z): 
     # # Maj(x, y,z) = (x ^ y) ^ (x ^ z) ^ (y ^ z)
