@@ -101,9 +101,9 @@ def cicle(valueH, valueK, messagge):
        f=valueH[5]
        g=valueH[6]
        h=valueH[7]
-       print(a,b,c,d,e,f,g,h, sep='     ')
+
        valueW=[]
-       valueW += chunks_message[first_16_words:first_16_words + 16]
+       valueW += chunks_message[first_16_words:first_16_words + 16] # 16 words from chunk message 
        first_16_words+=16
        # massima lunghezza che si può avere è di 2048 bits
        for t in range(16,64): #add the remainig 48 words of 32 bits 
@@ -119,7 +119,7 @@ def cicle(valueH, valueK, messagge):
        for t in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
             bits_H_Maj=Maj(a,b,c) #32 bits 
-            # print(bits_H_Maj,bits_H_Ch, sep='   ')
+
             wT=int(''.join(valueW[t]),2)
             kT=valueK[t]
 
@@ -149,11 +149,8 @@ def cicle(valueH, valueK, messagge):
        h7=bin((h + valueH[7]) % 2**32)[2:].zfill(32)
 
        valueH=[int(h0,2),int(h1,2),int(h2,2),int(h3,2),int(h4,2),int(h5,2),int(h6,2),int(h7,2)]
-
-    #    print(h0,h1,h2,h3,h4,h5,h6,h7, sep='    ')
    
     return h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7 
 
 bits_word=cicle(H,K,'ciattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt') 
-print(len(bits_word))
 print(sha256testo.bits_to_hex(bits_word))
