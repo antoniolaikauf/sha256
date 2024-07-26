@@ -39,9 +39,6 @@ a2bfe8a1 a81a664b c24b8b70 c76c51a3 d192e819 d6990624 f40e3585 106aa070
 import sha256testo
 from termcolor import cprint , colored
 
-# h = ['0x6a09e667', '0xbb67ae85', '0x3c6ef372', '0xa54ff53a', '0x510e527f', '0x9b05688c', '0x1f83d9ab', '0x5be0cd19']
-
-# k = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59f111f1', '0x923f82a4','0xab1c5ed5', '0xd807aa98', '0x12835b01', '0x243185be', '0x550c7dc3', '0x72be5d74', '0x80deb1fe','0x9bdc06a7', '0xc19bf174', '0xe49b69c1', '0xefbe4786', '0x0fc19dc6', '0x240ca1cc', '0x2de92c6f','0x4a7484aa', '0x5cb0a9dc', '0x76f988da', '0x983e5152', '0xa831c66d', '0xb00327c8', '0xbf597fc7','0xc6e00bf3', '0xd5a79147', '0x06ca6351', '0x14292967', '0x27b70a85', '0x2e1b2138', '0x4d2c6dfc','0x53380d13', '0x650a7354', '0x766a0abb', '0x81c2c92e', '0x92722c85', '0xa2bfe8a1', '0xa81a664b','0xc24b8b70', '0xc76c51a3', '0xd192e819', '0xd6990624', '0xf40e3585', '0x106aa070', '0x19a4c116','0x1e376c08', '0x2748774c', '0x34b0bcb5', '0x391c0cb3', '0x4ed8aa4a', '0x5b9cca4f', '0x682e6ff3','0x748f82ee', '0x78a5636f', '0x84c87814', '0x8cc70208', '0x90befffa', '0xa4506ceb', '0xbef9a3f7','0xc67178f2']
 
 H= [ 0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]
 K = [
@@ -56,8 +53,8 @@ K = [
 ]
 
 
-def rotate(x,n,w=32): # w lunghezza parola 
-    return (x >> n) | (x << w - n)   #ruota i bits più significativi 
+def rotate(x,n,w=32): # w word lenght  
+    return (x >> n) | (x << w - n)   # << or >>change the most significant position bits  
 
 
 def sigma1(x):
@@ -103,6 +100,7 @@ def cicle(valueH, valueK, messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
+    print(padd_message)
     for x in range(1):
         
        valueW=[]
@@ -115,25 +113,21 @@ def cicle(valueH, valueK, messagge):
             word=[chr for chr in  word]
             if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
             valueW.append(word)
-       clank=[]
-       for x in valueW:
-           clank.append(''.join(x))
-    #    print(clank)
-    #    return
            
        if len(valueW) != 64 : raise ValueError 
        # for message_block in bloc
        for t in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
-
             bits_H_Maj=Maj(a,b,c) #32 bits 
- 
+
             wT=int(''.join(valueW[t]),2)
             kT=valueK[t]
+
             eT=_capsigma1(e) % 2**32
+            aT=_capsigma0(a) % 2**32
+
             t_one= (h + eT + bits_H_Ch + kT + wT ) % 2**32
             # print(colored(f'Ch:{bits_H_Ch}','blue'), colored(f'h:{h}','green'), colored(f'e:{e}','green'), colored(f'K:{kT}','light_magenta'), colored(f'W:{wT}','cyan'), colored(f'T:{t_one}','light_blue'), sep='   ')
-            aT=_capsigma0(a) % 2**32
             t_two= (aT + bits_H_Maj) % 2**32
             # print(colored(f'a:{a}','green'), colored(f'Maj:{bits_H_Maj}', 'blue'),colored(f'T:{t_two}','light_blue'), sep='   ')
             h = g
@@ -144,7 +138,6 @@ def cicle(valueH, valueK, messagge):
             c = b
             b = a
             a = (t_one + t_two) % 2**32
-            # print(a,b,c,d,e,f,g,h, sep='       ')
 
     h0=bin((a + valueH[0]) % 2**32)[2:].zfill(32)
     h1=bin((b + valueH[1]) % 2**32)[2:].zfill(32)
@@ -155,12 +148,10 @@ def cicle(valueH, valueK, messagge):
     h6=bin((g + valueH[6]) % 2**32)[2:].zfill(32)
     h7=bin((h + valueH[7]) % 2**32)[2:].zfill(32)
 
-    #h1 h5 
-    # print( b , valueH[1],h1,f, valueH[5],h5 ,sep='   ')
     print(h0,h1,h2,h3,h4,h5,h6,h7, sep='    ')
-    # print(len(bin(h0)[2:]),len(bin(h1)[2:]),len(bin(h2)[2:]),len(bin(h3)[2:]),len(bin(h4)[2:]),len(bin(h5)[2:]),len(bin(h6)[2:]),len(bin(h7)[2:]))
+   
     return h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7 
-    # return bin(h0)[2:] + bin(h1)[2:]+ bin(h2)[2:] + bin(h3)[2:] + bin(h4)[2:] + bin(h5)[2:] + bin(h6)[2:] + bin(h7)[2:]
-bits_word=cicle(H,K,'hello world') 
+
+bits_word=cicle(H,K,'ciao') 
 print(len(bits_word))
 print(sha256testo.bits_to_hex(bits_word))
