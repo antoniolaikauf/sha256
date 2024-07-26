@@ -1,10 +1,13 @@
 # Secure Hash Algorithms aka SHA
 
-Le funzioni **SHA** sono una famiglia di funzioni hash crittografiche utilizzate principalmente nell'ambito della **crittografia**, per validare se i dati sono stati modificati e quindi nel contesto della sicurezza. Sono anche impiegate in **protocolli di criptovaluta**, come la blockchain di Bitcoin, per generare la chiave privata del wallet. Sono usate anche per le **password**, in modo che il server contenga solo l'hash della password: in questo modo, se un aggressore rubasse il contenuto del database, non potrebbe ricavare la password originale.
-Viene usata anche nel processo di **hadshake** nei protocolli della crittografia TLS/SSL cosi che si possano condividere le chiavi tra i partecipanti.
-Questo algoritmo è quindi molto utilizzato e importante al giorno d'oggi.
+
+Secure Hash Algorithms aka SHA
+The **SHA** functions are a family of cryptographic hash functions primarily used in the field of **cryptography** to validate data integrity and security. They are also employed in **cryptocurrency protocols**, like the Bitcoin blockchain, for generating wallet private keys. They are used for **passwords** as well, so that the server stores only the hash of the password: this way, if an attacker were to steal the database content, they couldn't retrieve the original password.
+SHA is also used in the **handshake** process of TLS/SSL cryptographic protocols to share keys among participants.
+This algorithm is thus very widely used and important today.
 
 ![](https://www.simplilearn.com/ice9/free_resources_article_thumb/hashing1.PNG)
+
 
 ## Cosa è una funzione hash 
 una funzione hash è una funzione che si comporta come una funzione **one way** cioè che per ottenere l'output da questa funzione è facile ma ottenere l'input dall'output è difficile senza conoscere altre informazioni.

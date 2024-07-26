@@ -1,3 +1,7 @@
+'''
+sha256 with module
+'''
+
 from cryptography.hazmat.primitives import hashes
 
 sha256=hashes.Hash(hashes.SHA256())
