@@ -77,7 +77,7 @@ def padding(bits, lengthM):
         bits+=[x for x in bin(lengthM)[2:].zfill(512 - L)]
     else:
         while len(bits) > 512:
-            array_bits.append(bits[0:513])
+            array_bits.append(bits[0:512])
             del bits[0:513]
         while len(bits) % 512 !=448: # add 0 until reach 448 
             bits.append(str(0))
@@ -86,15 +86,16 @@ def padding(bits, lengthM):
     array_bits.append(bits) 
     return array_bits
 
-message=input_bit('ciattttttttrrrrrrrrrrrrrttttttttttttttttttttttttttttttttttt')
-print(padding(message, len(message)))
+message=input_bit('ciattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt')
+# print(padding(message, len(message)))
 
 def chunks(bits,chunk=8): #split list of 512 bits in chucks of 32 bits
     chunks_bits=[]
-    Lbits=len(bits)
-    for x in range(0,Lbits,chunk):
-        chunks_bits.append(bits[x:x + chunk])
+    aMessage=[]
+    for x in bits:aMessage +=x
+    for x in range(0,len(aMessage),chunk):
+        chunks_bits.append(aMessage[x:x + chunk])
 
-    return chunks_bits 
+    return chunks_bits
 
-# print(len(chunks(padding(message, len(message)),32)[0]))
+print(chunks(padding(message, len(message)),32))
