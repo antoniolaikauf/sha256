@@ -55,20 +55,6 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 448 - (24  + 1) = 423 zero bits, and then  the message length, to become the 512-bit padded message
 '''
 
-# def padding(bits, lengthM):
-#     bits.append(str(1)) # ISO padding 
-
-#     while len(bits) % 512 !=448: # add 0 until reach 448 
-#         bits.append(str(0))
-    
-#     bits+=[x for x in bin(lengthM)[2:].zfill(64)] # add remainig 64 bits to the list
-
-#     return bits
-
-# message=input_bit('ciao')
-# print(padding(message, len(message)))
-
-
 def padding(bits, lengthM):
     bits.append(str(1)) # ISO padding 
     array_bits=[]

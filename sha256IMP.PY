@@ -87,43 +87,39 @@ def _capsigma1(x):
     return rotate(x,6) ^ rotate(x,11) ^ rotate(x,25)
     
 def cicle(valueH, valueK, messagge):
-    a=valueH[0]
-    b=valueH[1]
-    c=valueH[2]
-    d=valueH[3]
-    e=valueH[4]
-    f=valueH[5]
-    g=valueH[6]
-    h=valueH[7]
-
     
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-    # print(padd_message)
     first_16_words=0
-    for x in range(len(padd_message)):
+    for x in range(len(padd_message) // 512):
+       a=valueH[0]
+       b=valueH[1]
+       c=valueH[2]
+       d=valueH[3]
+       e=valueH[4]
+       f=valueH[5]
+       g=valueH[6]
+       h=valueH[7]
+       print(a,b,c,d,e,f,g,h, sep='     ')
        valueW=[]
        valueW += chunks_message[first_16_words:first_16_words + 16]
-       print(len(valueW))
        first_16_words+=16
+       # massima lunghezza che si può avere è di 2048 bits
        for t in range(16,64): #add the remainig 48 words of 32 bits 
             w_t7=int(''.join( valueW[t - 7]),2)
             w_t16=int(''.join(valueW[t - 16]),2)
             w_t=((sigma1(valueW[t - 2])  + w_t7  + sigma0(valueW[t - 15]) + w_t16) % 2**32)
             word=bin(w_t)[2:].zfill(32) # words a 32 bits
             word=[chr for chr in  word]
-            # print(word,t)
             try: len(word) == 32
             except ValueError as e: raise Exception('errore') from e
             valueW.append(word)
-    #    return valueW
-    #    if len(valueW) != 64 : raise ValueError 
-       # for message_block in bloc
+
        for t in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
             bits_H_Maj=Maj(a,b,c) #32 bits 
-
+            # print(bits_H_Maj,bits_H_Ch, sep='   ')
             wT=int(''.join(valueW[t]),2)
             kT=valueK[t]
 
@@ -143,16 +139,18 @@ def cicle(valueH, valueK, messagge):
             b = a
             a = (t_one + t_two) % 2**32
 
-    h0=bin((a + valueH[0]) % 2**32)[2:].zfill(32)
-    h1=bin((b + valueH[1]) % 2**32)[2:].zfill(32)
-    h2=bin((c + valueH[2]) % 2**32)[2:].zfill(32)
-    h3=bin((d + valueH[3]) % 2**32)[2:].zfill(32)
-    h4=bin((e + valueH[4]) % 2**32)[2:].zfill(32)
-    h5=bin((f + valueH[5]) % 2**32)[2:].zfill(32)
-    h6=bin((g + valueH[6]) % 2**32)[2:].zfill(32)
-    h7=bin((h + valueH[7]) % 2**32)[2:].zfill(32)
+       h0=bin((a + valueH[0]) % 2**32)[2:].zfill(32)
+       h1=bin((b + valueH[1]) % 2**32)[2:].zfill(32)
+       h2=bin((c + valueH[2]) % 2**32)[2:].zfill(32)
+       h3=bin((d + valueH[3]) % 2**32)[2:].zfill(32)
+       h4=bin((e + valueH[4]) % 2**32)[2:].zfill(32)
+       h5=bin((f + valueH[5]) % 2**32)[2:].zfill(32)
+       h6=bin((g + valueH[6]) % 2**32)[2:].zfill(32)
+       h7=bin((h + valueH[7]) % 2**32)[2:].zfill(32)
 
-    print(h0,h1,h2,h3,h4,h5,h6,h7, sep='    ')
+       valueH=[int(h0,2),int(h1,2),int(h2,2),int(h3,2),int(h4,2),int(h5,2),int(h6,2),int(h7,2)]
+
+    #    print(h0,h1,h2,h3,h4,h5,h6,h7, sep='    ')
    
     return h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7 
 
