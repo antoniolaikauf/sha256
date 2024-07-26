@@ -152,5 +152,5 @@ def cicle(valueH, valueK, messagge):
    
     return h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7 
 
-bits_word=cicle(H,K,'ciattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt') 
+bits_word=cicle(H,K,'ciao') 
 print(sha256testo.bits_to_hex(bits_word))
