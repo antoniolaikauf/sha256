@@ -105,7 +105,7 @@ def cicle(valueH, valueK, messagge):
        valueW=[]
        valueW += chunks_message[first_16_words:first_16_words + 16] # 16 words from chunk message 
        first_16_words+=16
-       # massima lunghezza che si può avere è di 2048 bits
+      
        for t in range(16,64): #add the remainig 48 words of 32 bits 
             w_t7=int(''.join( valueW[t - 7]),2)
             w_t16=int(''.join(valueW[t - 16]),2)

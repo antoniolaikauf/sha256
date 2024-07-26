@@ -18,12 +18,8 @@ def bits_to_hex(bits):
     for x in range(0,len(bits) - 3, 4):
         bitsF.append(bits[x:start]) #split 4 bits for hex
         start+=4
-    # print(bitsF)
     pair_F_bit=''
     for x in bitsF:
-        # for i,y in enumerate(x):
-        #     x[i] = str(y) #trasformare bit 
-        # a = "".join(x)
         pair_F_bit += hex(int(x,2)) [2:] # convert int in hex ed cut x0
     return  pair_F_bit
 
@@ -57,7 +53,6 @@ using a binary representation. For example, the (8-bit ASCII) message “abc” 
 
 def padding(bits, lengthM):
     bits.append(str(1)) # ISO padding 
-    array_bits=[]
     L=len(bits)
     if 448 < L < 512:
         bits+=[x for x in bin(lengthM)[2:].zfill(512 - L)]

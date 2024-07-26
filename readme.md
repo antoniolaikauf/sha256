@@ -27,6 +27,7 @@ se hash(A)=hash(B) e A≠B allora A e B sono una collisione. Nella hash function
 
   all'interno della funzione i blocchi vengono processati sempre il doppio della lunghezza del digest 
 
+La funzione sha256 ha un limite al messaggio che sarebbe **2<sup>64</sup> - 1** questo perchè nel procedimento del padding si aggiungono 64 bits alla fine di cui una parte di questi 64 bits sarà composta dalla lunghezza del messaggio quindi da un limite al messaggio di  **2<sup>64</sup> - 1** perchè se il messaggio fosse più lungo di 2<sup>64</sup> - 1 si aggiungerebbero più di 64 bits e quindi il padding sarebbe incorretto
 
 Tutti i vari tipi di SHA sono stati pubblicati dal NIST \
 ![](img/Screenshot%202024-07-17%20145534.png)
