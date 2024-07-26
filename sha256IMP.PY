@@ -100,21 +100,25 @@ def cicle(valueH, valueK, messagge):
     bits_message=sha256testo.input_bit(messagge)
     padd_message=sha256testo.padding(bits_message,len(bits_message))
     chunks_message= sha256testo.chunks(padd_message,32)
-    print(padd_message)
-    for x in range(1):
-        
+    # print(padd_message)
+    first_16_words=0
+    for x in range(len(padd_message)):
        valueW=[]
-       valueW += chunks_message
+       valueW += chunks_message[first_16_words:first_16_words + 16]
+       print(len(valueW))
+       first_16_words+=16
        for t in range(16,64): #add the remainig 48 words of 32 bits 
             w_t7=int(''.join( valueW[t - 7]),2)
             w_t16=int(''.join(valueW[t - 16]),2)
             w_t=((sigma1(valueW[t - 2])  + w_t7  + sigma0(valueW[t - 15]) + w_t16) % 2**32)
             word=bin(w_t)[2:].zfill(32) # words a 32 bits
             word=[chr for chr in  word]
-            if len(word) != 32 : raise ValueError('la lunghezza è maggiore')
+            # print(word,t)
+            try: len(word) == 32
+            except ValueError as e: raise Exception('errore') from e
             valueW.append(word)
-           
-       if len(valueW) != 64 : raise ValueError 
+    #    return valueW
+    #    if len(valueW) != 64 : raise ValueError 
        # for message_block in bloc
        for t in range(64):
             bits_H_Ch= Ch(e,f,g) #32 bits
@@ -152,6 +156,6 @@ def cicle(valueH, valueK, messagge):
    
     return h0 + h1 + h2 + h3 + h4 + h5 + h6 + h7 
 
-bits_word=cicle(H,K,'ciao') 
+bits_word=cicle(H,K,'ciattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt') 
 print(len(bits_word))
 print(sha256testo.bits_to_hex(bits_word))
