@@ -1,5 +1,7 @@
 # Secure Hash Algorithms aka SHA
 
+
+
 Secure Hash Algorithms aka SHA
 The **SHA** functions are a family of cryptographic hash functions primarily used in the field of **cryptography** to validate data integrity and security. They are also employed in **cryptocurrency protocols**, like the Bitcoin blockchain, for generating wallet private keys. They are used for **passwords** as well, so that the server stores only the hash of the password: this way, if an attacker were to steal the database content, they couldn't retrieve the original password.
 SHA is also used in the **handshake** process of TLS/SSL cryptographic protocols to share keys among participants.
